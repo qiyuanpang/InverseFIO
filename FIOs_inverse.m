@@ -9,7 +9,7 @@ occ = 64;
 rank_or_tol = 1e-8
 repeat_num = 5;
 
-dims = [4:7]
+dims = [4:5]
 cases = length(dims);
 apptime = zeros(cases, 1);
 soltime = zeros(cases, 1);
@@ -18,7 +18,7 @@ solerr = zeros(cases, 1);
 condAs = zeros(cases, 1);
 condATAs = zeros(cases, 1);
 for i = 1:cases
-    ii = dims[i]
+    ii = dims(i);
     N = 2^(2*ii);
     n = 2^ii;
     NG = 2*ii;
@@ -96,22 +96,22 @@ NlogN = logN + log2(logN);
 N2logN = logN + 2*log2(logN);
 
 
-fig = figure
-h = zeros(3);
-h(1) = plot(logN, log2(apptime)); hold on;
-h(2) = plot(logN, NlogN-NlogN(1)+log2(apptime(1))); hold on;
+fig = figure(1);
+hold on;
+h(1) = plot(logN, log2(apptime));
+h(2) = plot(logN, NlogN-NlogN(1)+log2(apptime(1)));
 h(3) = plot(logN, N2logN-N2logN(1)+log2(apptime(1)));
 xlabel('Log(N)');
 ylabel('Log(Time)/s'); 
 title('Time scaling of Application');
-hold off;
 legend(h, 'App time', 'N log N', 'N log^2 N');
+axis square;
 saveas(fig, 'apptime.png');
 
-fig = figure
-h = zeros(3);
-h(1) = plot(logN, log2(soltime)); hold on;
-h(2) = plot(logN, NlogN-NlogN(1)+log2(soltime(1))); hold on;
+fig = figure(2);
+hold on;
+h(1) = plot(logN, log2(soltime));
+h(2) = plot(logN, NlogN-NlogN(1)+log2(soltime(1)));
 h(3) = plot(logN, N2logN-N2logN(1)+log2(soltime(1)));
 xlabel('Log(N)');
 ylabel('Log(Time)/s'); 
@@ -120,9 +120,9 @@ hold off;
 legend(h, 'Sol time', 'N log N', 'N log^2 N');
 saveas(fig, 'soltime.png');
 
-fig = figure
-h = zeros(1);
-h(1) = plot(logN, log10(apperr)); hold on;
+fig = figure(3);
+hold on;
+h(1) = plot(logN, log10(apperr));
 xlabel('Log(N)');
 ylabel('Log10(error)'); 
 title('Error of Application');
@@ -130,9 +130,9 @@ hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
 saveas(fig, 'apperr.png');
 
-fig = figure
-h = zeros(1);
-h(1) = plot(logN, log10(solerr)); hold on;
+fig = figure(4);
+hold on;
+h(1) = plot(logN, log10(solerr));
 xlabel('Log(N)');
 ylabel('Log10(error)'); 
 title('Error of Solution');
@@ -140,7 +140,7 @@ hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
 saveas(fig, 'solerr.png');
 
-fig = figure
+fig = figure(5);
 h = zeros(1);
 h(1) = plot(logN, log10(condAs)); hold on;
 xlabel('Log(N)');
@@ -150,9 +150,9 @@ hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
 saveas(fig, 'condas.png');
 
-fig = figure
-h = zeros(1);
-h(1) = plot(logN, log10(condATAs)); hold on;
+fig = figure(6);
+hold on;
+h(1) = plot(logN, log10(condATAs));
 xlabel('Log(N)');
 ylabel('Log10(cond num)'); 
 title('Condition numbers');
