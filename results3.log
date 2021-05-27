@@ -1,0 +1,50 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+              R2019a Update 1 (9.6.0.1099231) 64-bit (glnxa64)
+                               April 12, 2019
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+
+tol =
+
+   1.0000e-10
+
+
+func_name =
+
+    'fun3'
+
+
+rank_or_tol =
+
+   1.0000e-10
+
+
+dims =
+
+     4     5     6     7
+
+N =  256 
+condition number estimation of A  : 1.3447e+04 
+condition number estimation of ATA: 4.0655e+06 
+hifie_mv err: 3.0350e-16 
+hifie_sv err/time: 5.0476e-12/4.5652e-03 (s) 
+N = 1024 
+condition number estimation of A  : 8.0880e+04 
+condition number estimation of ATA: 1.0660e+08 
+hifie_mv err: 6.8778e-16 
+hifie_sv err/time: 4.0705e-11/4.1226e-03 (s) 
+N = 4096 
+condition number estimation of A  : 1.7773e+06 
+condition number estimation of ATA: 1.0199e+10 
+hifie_mv err: 1.3369e-15 
+hifie_sv err/time: 2.2855e-09/6.7373e-02 (s) 
+N = 16384 
+condition number estimation of A  : 1.0232e+07 
+condition number estimation of ATA: 2.0220e+11 
+hifie_mv err: 2.6732e-15 
+hifie_sv err/time: 1.4385e-08/5.2987e-01 (s) 

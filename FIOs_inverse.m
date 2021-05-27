@@ -6,10 +6,10 @@ startup;
 tol = 1e-10
 func_name = 'fun1'
 occ = 64;
-rank_or_tol = 1e-8
+rank_or_tol = 1e-10
 repeat_num = 5;
 
-dims = [4:6]
+dims = [4:7]
 cases = length(dims);
 apptime = zeros(cases, 1);
 soltime = zeros(cases, 1);
@@ -106,7 +106,7 @@ ylabel('Log(Time)/s');
 title('Time scaling of Application');
 legend(h, 'App time', 'N log N', 'N log^2 N');
 axis square;
-saveas(fig, 'apptime.png');
+saveas(fig, "apptime_" + func_name + ".png");
 
 fig = figure(2);
 hold on;
@@ -118,7 +118,7 @@ ylabel('Log(Time)/s');
 title('Time scaling of Solving equations');
 hold off;
 legend(h, 'Sol time', 'N log N', 'N log^2 N');
-saveas(fig, 'soltime.png');
+saveas(fig, "soltime_" + func_name + ".png");
 
 fig = figure(3);
 hold on;
@@ -128,7 +128,7 @@ ylabel('Log10(error)');
 title('Error of Application');
 hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, 'apperr.png');
+saveas(fig, "apperr_" + func_name + ".png");
 
 fig = figure(4);
 hold on;
@@ -138,7 +138,7 @@ ylabel('Log10(error)');
 title('Error of Solution');
 hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, 'solerr.png');
+saveas(fig, "solerr_"+ func_name + ".png");
 
 fig = figure(5);
 h = zeros(1);
@@ -148,7 +148,7 @@ ylabel('Log10(cond num)');
 title('Condition numbers');
 hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, 'condas.png');
+saveas(fig, "conda_"+ func_name + ".png");
 
 fig = figure(6);
 hold on;
@@ -158,5 +158,6 @@ ylabel('Log10(cond num)');
 title('Condition numbers');
 hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, 'condatas.png');
+saveas(fig, "condata_" + func_name + ".png");
 
+exit

@@ -1,0 +1,56 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+              R2019a Update 1 (9.6.0.1099231) 64-bit (glnxa64)
+                               April 12, 2019
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+
+tol =
+
+   1.0000e-10
+
+
+func_name =
+
+    'fun5'
+
+
+rank_or_tol =
+
+   1.0000e-10
+
+
+dims =
+
+     4     5     6     7
+
+N =  256 
+condition number estimation of A  : 2.5600e+02 
+condition number estimation of ATA: 1.1781e+00 
+[Warning: Maximum number of iterations reached.] 
+[> In snorm (line 71)
+  In FIOs_inverse (line 75)] 
+hifie_mv err: 1.1365e-15 
+hifie_sv err/time: 1.0768e-15/4.2978e-03 (s) 
+N = 1024 
+condition number estimation of A  : 1.0240e+03 
+condition number estimation of ATA: 1.1773e+00 
+hifie_mv err: 1.7317e-15 
+hifie_sv err/time: 1.7205e-15/2.8976e-03 (s) 
+N = 4096 
+condition number estimation of A  : 4.0960e+03 
+condition number estimation of ATA: 1.1772e+00 
+[Warning: Maximum number of iterations reached.] 
+[> In snorm (line 71)
+  In FIOs_inverse (line 75)] 
+hifie_mv err: 1.7030e-15 
+hifie_sv err/time: 2.9239e-15/3.8881e-02 (s) 
+N = 16384 
+condition number estimation of A  : 1.6384e+04 
+condition number estimation of ATA: 1.1775e+00 
+hifie_mv err: 7.2324e-15 
+hifie_sv err/time: 5.6038e-15/1.7264e+00 (s) 
