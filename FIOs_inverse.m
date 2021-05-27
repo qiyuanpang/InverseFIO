@@ -9,7 +9,7 @@ occ = 64;
 rank_or_tol = 1e-8
 repeat_num = 5;
 
-dims = [4:5]
+dims = [4:6]
 cases = length(dims);
 apptime = zeros(cases, 1);
 soltime = zeros(cases, 1);
@@ -90,7 +90,7 @@ for i = 1:cases
     soltime(i) = sol_time;
 end
 
-N = 2*dims;
+N = 2.^(2*dims);
 logN = log2(N);
 NlogN = logN + log2(logN);
 N2logN = logN + 2*log2(logN);
