@@ -1,6 +1,6 @@
 % HIFIE2_BASE  Dispatch for HIFIE2 and HIFIE2X.
 
-function F = hifie2_base(A,x,occ,rank_or_tol,idfun,pxyfun,opts)
+function [F, maxrank] = hifie2_base(A,x,occ,rank_or_tol,idfun,pxyfun,opts)
 
   % set default parameters
   if nargin < 6, pxyfun = []; end
@@ -63,6 +63,7 @@ function F = hifie2_base(A,x,occ,rank_or_tol,idfun,pxyfun,opts)
   P = zeros(N,1);   % for indexing
 
   % loop over tree levels
+  maxrank = 0;
   for lvl = t.nlvl:-1:1
     l = t.l(:,lvl);
     nbox = t.lvp(lvl+1) - t.lvp(lvl);
@@ -206,6 +207,8 @@ function F = hifie2_base(A,x,occ,rank_or_tol,idfun,pxyfun,opts)
         if opts.symm == 'n', K2 = [K2; spget(M,slf,nbr)']; end
         K = [K1 + K2; Kpxy];
         [sk,rd,T] = idfun(K,K1,K2,rank_or_tol,opts.Tmax,opts.rrqr_iter);
+	%disp(length(sk))
+        maxrank = max(maxrank, length(sk));
 
         % restrict to skeletons for next level
         if d == 2

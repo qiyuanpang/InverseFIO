@@ -4,15 +4,15 @@ clear all;
 startup;
 
 tol = 1e-13
-func_name = 'fun5'
+func_name = 'fun4'
 occ = 64;
-rank_or_tol = 1e-12
+rank_or_tol = 1e-4
 repeat_num = 5;
 n0 = 8;
 tt = 5;
 rand_or_cheb = 'rand';
 
-dims = [4:7]
+dims = [4:5]
 cases = length(dims);
 apptime = zeros(cases, 1);
 soltime = zeros(cases, 1);
@@ -21,6 +21,7 @@ solerr = zeros(cases, 1);
 condAs = zeros(cases, 1);
 condATAs = zeros(cases, 1);
 bferr = zeros(cases, 1);
+ranks = zeros(cases, 1);
 for i = 1:cases
     ii = dims(i);
     N = 2^(2*ii);
@@ -29,6 +30,7 @@ for i = 1:cases
     rk = 15*ii;
     k = -N/2:N/2-1;
     kk = k(:);
+    %rank_or_tol = 4*2^ii    
 
     x = (0:N-1)/N;
     xx = x(:);
@@ -72,12 +74,12 @@ for i = 1:cases
     condATAs(i) = condATA;
     
     A1 = fun(xx, kk);
-    %ATA1 = A1'*A1;
+    ATA1 = A1'*A1;
 
     condA1 = condest(A1);
-    %condATA1 = condest(ATA1);
+    condATA1 = condest(ATA1);
     fprintf('condition number estimation of A1  : %10.4e \n', condA1)
-    %fprintf('condition number estimation of ATA1: %10.4e \n', condATA1)
+    fprintf('condition number estimation of ATA1: %10.4e \n', condATA1)
     
     randx = rand(N, 1);
     bfacc = norm(A*randx-A1*randx)/norm(A1*randx);
@@ -90,7 +92,10 @@ for i = 1:cases
     [x1,x2] = ndgrid((1:n)/n); 
     x = [x1(:) x2(:)]'; 
 
-    F = hifie2my(Afun,x,occ,rank_or_tol);
+    [F, rank] = hifie2my(Afun,x,occ,rank_or_tol);
+
+    fprintf('rank of hif: %6d \n', rank)
+    ranks(i) = rank;
 
     err = snorm(N,@(x)(ATA*x - hifie_mv(F,x)),[],[],1,128);
     err = err/snorm(N,@(x)(ATA*x),[],[],1, 128);
@@ -162,8 +167,8 @@ hold off;
 saveas(fig, "solerr_"+ func_name + ".png");
 
 fig = figure(5);
-h = zeros(1);
-h(1) = plot(logN, log10(condAs)); hold on;
+hold on;
+h(1) = plot(logN, log10(condAs));
 xlabel('Log(N)');
 ylabel('Log10(cond num)'); 
 title('Condition numbers');
@@ -190,5 +195,18 @@ title('Error of BF');
 hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
 saveas(fig, "bferr_"+ func_name + ".png");
+
+
+fig = figure(8);
+hold on;
+h(1) = plot(logN, log2(ranks));
+h(2) = plot(logN, 0.5*logN-0.5*logN(1)+log2(ranks(1)));
+h(3) = plot(logN, log2(logN)-log2(logN(1))+log2(ranks(1)));
+xlabel('Log(N)');
+ylabel('Log2(rank)'); 
+title('Rank');
+hold off;
+legend(h, 'rank', 'sqrt(N)', 'log N');
+saveas(fig, "rank_"+ func_name + ".png");
 
 exit
