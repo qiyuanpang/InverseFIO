@@ -11,7 +11,7 @@ For product information, visit www.mathworks.com.
 
 tol =
 
-   1.0000e-10
+   1.0000e-13
 
 
 func_name =
@@ -21,7 +21,7 @@ func_name =
 
 rank_or_tol =
 
-   1.0000e-10
+   1.0000e-12
 
 
 dims =
@@ -29,22 +29,30 @@ dims =
      4     5     6     7
 
 N =  256 
-condition number estimation of A  : 8.7373e+08 
-condition number estimation of ATA: 1.2674e+16 
-hifie_mv err: 5.2425e-16 
-hifie_sv err/time: 1.2618e-01/4.5428e-03 (s) 
+condition number estimation of A  : 5.1285e+08 
+condition number estimation of ATA: 6.0125e+15 
+condition number estimation of A1  : 5.1285e+08 
+err between matrices: 2.4779e-14 
+hifie_mv err: 2.1638e-13 
+hifie_sv err/time: 7.4996e-02/5.0428e-03 (s) 
 N = 1024 
-condition number estimation of A  : 3.1678e+13 
-condition number estimation of ATA: 4.6764e+17 
-hifie_mv err: 9.0091e-16 
-hifie_sv err/time: 9.5093e-01/3.2360e-03 (s) 
+condition number estimation of A  : 2.8028e+16 
+condition number estimation of ATA: 1.7242e+18 
+condition number estimation of A1  : 4.3930e+16 
+err between matrices: 5.5060e-14 
+hifie_mv err: 5.5009e-13 
+hifie_sv err/time: 3.3807e+01/3.7920e-03 (s) 
 N = 4096 
-condition number estimation of A  : 3.5142e+17 
-condition number estimation of ATA: 9.6671e+18 
-hifie_mv err: 3.1354e-15 
-hifie_sv err/time: 1.9308e+01/4.1219e-02 (s) 
+condition number estimation of A  : 1.0016e+17 
+condition number estimation of ATA: 1.9279e+19 
+condition number estimation of A1  : 2.1886e+17 
+err between matrices: 2.0276e-10 
+hifie_mv err: 6.4166e-12 
+hifie_sv err/time: 1.4956e+02/6.3170e-02 (s) 
 N = 16384 
-condition number estimation of A  : 1.9876e+19 
-condition number estimation of ATA: 4.6588e+19 
-hifie_mv err: 1.7799e-14 
-hifie_sv err/time: 3.2548e+01/5.4567e-01 (s) 
+condition number estimation of A  : 6.5544e+17 
+condition number estimation of ATA: 5.8917e+19 
+condition number estimation of A1  : 3.8227e+17 
+err between matrices: 4.3963e-11 
+hifie_mv err: 1.0060e-12 
+hifie_sv err/time: 8.1435e+03/5.0787e-01 (s) 

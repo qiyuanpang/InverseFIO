@@ -11,7 +11,7 @@ For product information, visit www.mathworks.com.
 
 tol =
 
-   1.0000e-10
+   1.0000e-13
 
 
 func_name =
@@ -21,7 +21,7 @@ func_name =
 
 rank_or_tol =
 
-   1.0000e-10
+   1.0000e-12
 
 
 dims =
@@ -29,28 +29,33 @@ dims =
      4     5     6     7
 
 N =  256 
-condition number estimation of A  : 2.5600e+02 
-condition number estimation of ATA: 1.1781e+00 
-[Warning: Maximum number of iterations reached.] 
-[> In snorm (line 71)
-  In FIOs_inverse (line 75)] 
-hifie_mv err: 1.1365e-15 
-hifie_sv err/time: 1.0768e-15/4.2978e-03 (s) 
+condition number estimation of A  : 2.5601e+02 
+condition number estimation of ATA: 1.1775e+00 
+condition number estimation of A1  : 2.5600e+02 
+err between matrices: 2.7105e-14 
+hifie_mv err: 6.0271e-14 
+hifie_sv err/time: 2.6573e-14/1.0862e-02 (s) 
 N = 1024 
 condition number estimation of A  : 1.0240e+03 
-condition number estimation of ATA: 1.1773e+00 
-hifie_mv err: 1.7317e-15 
-hifie_sv err/time: 1.7205e-15/2.8976e-03 (s) 
+condition number estimation of ATA: 1.1772e+00 
+condition number estimation of A1  : 1.0240e+03 
+err between matrices: 5.2399e-14 
+hifie_mv err: 7.0321e-14 
+hifie_sv err/time: 5.2505e-14/1.8744e-02 (s) 
 N = 4096 
 condition number estimation of A  : 4.0960e+03 
 condition number estimation of ATA: 1.1772e+00 
+condition number estimation of A1  : 4.0960e+03 
+err between matrices: 5.1893e-11 
 [Warning: Maximum number of iterations reached.] 
 [> In snorm (line 71)
-  In FIOs_inverse (line 75)] 
-hifie_mv err: 1.7030e-15 
-hifie_sv err/time: 2.9239e-15/3.8881e-02 (s) 
+  In FIOs_inverse (line 95)] 
+hifie_mv err: 7.6571e-16 
+hifie_sv err/time: 8.8127e-11/7.7012e-02 (s) 
 N = 16384 
 condition number estimation of A  : 1.6384e+04 
-condition number estimation of ATA: 1.1775e+00 
-hifie_mv err: 7.2324e-15 
-hifie_sv err/time: 5.6038e-15/1.7264e+00 (s) 
+condition number estimation of ATA: 1.1772e+00 
+condition number estimation of A1  : 1.6384e+04 
+err between matrices: 3.2118e-11 
+hifie_mv err: 2.6367e-15 
+hifie_sv err/time: 3.1093e-11/1.7836e+00 (s) 

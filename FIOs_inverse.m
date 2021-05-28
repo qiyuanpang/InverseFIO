@@ -3,11 +3,14 @@ clear all;
 
 startup;
 
-tol = 1e-10
-func_name = 'fun1'
+tol = 1e-13
+func_name = 'fun5'
 occ = 64;
-rank_or_tol = 1e-10
+rank_or_tol = 1e-12
 repeat_num = 5;
+n0 = 8;
+tt = 5;
+rand_or_cheb = 'rand';
 
 dims = [4:7]
 cases = length(dims);
@@ -17,11 +20,13 @@ apperr = zeros(cases, 1);
 solerr = zeros(cases, 1);
 condAs = zeros(cases, 1);
 condATAs = zeros(cases, 1);
+bferr = zeros(cases, 1);
 for i = 1:cases
     ii = dims(i);
     N = 2^(2*ii);
     n = 2^ii;
-    NG = 2*ii;
+    NG = 3*ii;
+    rk = 15*ii;
     k = -N/2:N/2-1;
     kk = k(:);
 
@@ -46,7 +51,8 @@ for i = 1:cases
 
     tic;
     for j = 1:repeat_num
-        [Factor,Rcomp] = IBF_Cheby(fun,xx,kk,NG,tol);
+        %[Factor,Rcomp] = IBF_Cheby(fun,xx,kk,NG,tol);
+        Factor = BF_IDBF(fun, xx, kk, n0, rk, tol, rand_or_cheb, tt);
     end
     FactorT = toc/repeat_num;
 
@@ -64,6 +70,20 @@ for i = 1:cases
 
     condAs(i) = condA;
     condATAs(i) = condATA;
+    
+    A1 = fun(xx, kk);
+    %ATA1 = A1'*A1;
+
+    condA1 = condest(A1);
+    %condATA1 = condest(ATA1);
+    fprintf('condition number estimation of A1  : %10.4e \n', condA1)
+    %fprintf('condition number estimation of ATA1: %10.4e \n', condATA1)
+    
+    randx = rand(N, 1);
+    bfacc = norm(A*randx-A1*randx)/norm(A1*randx);
+    fprintf('err between matrices: %10.4e \n', bfacc)
+    %fprintf('err between ATAs    : %10.4e \n', norm(ATA*randx-ATA1*randx)/norm(ATA1*randx))
+    bferr(i) = bfacc;    
 
     Afun = @(i, j)fun_ATA(ATA, i, j);
 
@@ -72,13 +92,14 @@ for i = 1:cases
 
     F = hifie2my(Afun,x,occ,rank_or_tol);
 
-    err = snorm(N,@(x)(ATA*x - hifie_mv(F,x)),[],[],1);
-    err = err/snorm(N,@(x)(ATA*x),[],[],1);
+    err = snorm(N,@(x)(ATA*x - hifie_mv(F,x)),[],[],1,128);
+    err = err/snorm(N,@(x)(ATA*x),[],[],1, 128);
     fprintf('hifie_mv err: %10.4e \n',err)
     apperr(i) = err;
 
-    sol = rand(N,1);
-    b = BF_adj_apply(Factor, BF_apply(Factor,sol));
+    sol = 2*rand(N,1);
+    b = BF_adj_apply(Factor, A1*sol);
+    %b = ATA1*sol;
     tic;
     for j = 1:repeat_num
         app = hifie_sv(F, b);
@@ -159,5 +180,15 @@ title('Condition numbers');
 hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
 saveas(fig, "condata_" + func_name + ".png");
+
+fig = figure(7);
+hold on;
+h(1) = plot(logN, log10(bferr));
+xlabel('Log(N)');
+ylabel('Log10(error)'); 
+title('Error of BF');
+hold off;
+% legend(h, 'App time', 'N log N', 'N log^2 N');
+saveas(fig, "bferr_"+ func_name + ".png");
 
 exit
