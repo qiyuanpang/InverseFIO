@@ -11,7 +11,7 @@ For product information, visit www.mathworks.com.
 
 tol =
 
-   1.0000e-13
+   1.0000e-10
 
 
 func_name =
@@ -21,7 +21,7 @@ func_name =
 
 rank_or_tol =
 
-   1.0000e-12
+   1.0000e-06
 
 
 dims =
@@ -29,33 +29,38 @@ dims =
      4     5     6     7
 
 N =  256 
-condition number estimation of A  : 2.5601e+02 
+condition number estimation of A  : 2.5600e+02 
 condition number estimation of ATA: 1.1775e+00 
 condition number estimation of A1  : 2.5600e+02 
-err between matrices: 2.7105e-14 
-hifie_mv err: 6.0271e-14 
-hifie_sv err/time: 2.6573e-14/1.0862e-02 (s) 
+condition number estimation of ATA1: 1.1772e+00 
+err between matrices: 1.6049e-11 
+rank of hif:     37 
+hifie_mv err: 5.5459e-08 
+hifie_sv err/time: 1.8096e-08/6.8738e-03 (s) 
 N = 1024 
 condition number estimation of A  : 1.0240e+03 
 condition number estimation of ATA: 1.1772e+00 
 condition number estimation of A1  : 1.0240e+03 
-err between matrices: 5.2399e-14 
-hifie_mv err: 7.0321e-14 
-hifie_sv err/time: 5.2505e-14/1.8744e-02 (s) 
+condition number estimation of ATA1: 1.1772e+00 
+err between matrices: 2.6998e-11 
+rank of hif:     68 
+hifie_mv err: 6.2914e-08 
+hifie_sv err/time: 1.8159e-08/4.6100e-03 (s) 
 N = 4096 
 condition number estimation of A  : 4.0960e+03 
 condition number estimation of ATA: 1.1772e+00 
 condition number estimation of A1  : 4.0960e+03 
-err between matrices: 5.1893e-11 
-[Warning: Maximum number of iterations reached.] 
-[> In snorm (line 71)
-  In FIOs_inverse (line 95)] 
-hifie_mv err: 7.6571e-16 
-hifie_sv err/time: 8.8127e-11/7.7012e-02 (s) 
+condition number estimation of ATA1: 1.1775e+00 
+err between matrices: 2.8332e-08 
+rank of hif:    133 
+hifie_mv err: 5.5050e-07 
+hifie_sv err/time: 3.6309e-08/2.1038e-02 (s) 
 N = 16384 
 condition number estimation of A  : 1.6384e+04 
-condition number estimation of ATA: 1.1772e+00 
+condition number estimation of ATA: 1.1775e+00 
 condition number estimation of A1  : 1.6384e+04 
-err between matrices: 3.2118e-11 
-hifie_mv err: 2.6367e-15 
-hifie_sv err/time: 3.1093e-11/1.7836e+00 (s) 
+condition number estimation of ATA1: 1.1775e+00 
+err between matrices: 1.8378e-08 
+rank of hif:    259 
+hifie_mv err: 6.7425e-07 
+hifie_sv err/time: 2.4372e-08/3.5991e-02 (s) 

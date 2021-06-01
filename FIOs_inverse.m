@@ -3,16 +3,16 @@ clear all;
 
 startup;
 
-tol = 1e-13
-func_name = 'fun4'
+tol = 1e-10
+func_name = 'fun5'
 occ = 64;
-rank_or_tol = 1e-4
+rank_or_tol = 1e-6
 repeat_num = 5;
 n0 = 8;
 tt = 5;
 rand_or_cheb = 'rand';
 
-dims = [4:5]
+dims = [4:7]
 cases = length(dims);
 apptime = zeros(cases, 1);
 soltime = zeros(cases, 1);

@@ -1,0 +1,66 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+              R2019a Update 1 (9.6.0.1099231) 64-bit (glnxa64)
+                               April 12, 2019
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+
+tol =
+
+   1.0000e-10
+
+
+func_name =
+
+    'fun1'
+
+
+rank_or_tol =
+
+   1.0000e-06
+
+
+dims =
+
+     4     5     6     7
+
+N =  256 
+condition number estimation of A  : 2.5642e+02 
+condition number estimation of ATA: 2.4089e+00 
+condition number estimation of A1  : 2.5621e+02 
+condition number estimation of ATA1: 2.4168e+00 
+err between matrices: 5.3647e-05 
+rank of hif:     72 
+hifie_mv err: 5.9008e-16 
+hifie_sv err/time: 4.6480e-05/4.5460e-03 (s) 
+N = 1024 
+condition number estimation of A  : 1.0245e+03 
+condition number estimation of ATA: 2.4843e+00 
+condition number estimation of A1  : 1.0245e+03 
+condition number estimation of ATA1: 2.4872e+00 
+err between matrices: 1.9343e-05 
+rank of hif:    253 
+hifie_mv err: 1.5128e-07 
+hifie_sv err/time: 1.6458e-05/3.6542e-03 (s) 
+N = 4096 
+condition number estimation of A  : 4.0977e+03 
+condition number estimation of ATA: 2.4973e+00 
+condition number estimation of A1  : 4.0972e+03 
+condition number estimation of ATA1: 2.5112e+00 
+err between matrices: 5.6385e-06 
+rank of hif:    504 
+hifie_mv err: 3.0939e-07 
+hifie_sv err/time: 2.8688e-06/2.0685e-02 (s) 
+N = 16384 
+condition number estimation of A  : 1.6387e+04 
+condition number estimation of ATA: 2.5105e+00 
+condition number estimation of A1  : 1.6386e+04 
+condition number estimation of ATA1: 2.4974e+00 
+err between matrices: 6.0403e-07 
+rank of hif:   1024 
+hifie_mv err: 6.5570e-07 
+hifie_sv err/time: 6.3517e-07/1.1117e-01 (s) 

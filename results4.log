@@ -11,7 +11,7 @@ For product information, visit www.mathworks.com.
 
 tol =
 
-   1.0000e-13
+   1.0000e-10
 
 
 func_name =
@@ -21,7 +21,7 @@ func_name =
 
 rank_or_tol =
 
-   1.0000e-12
+   1.0000e-06
 
 
 dims =
@@ -29,30 +29,38 @@ dims =
      4     5     6     7
 
 N =  256 
-condition number estimation of A  : 2.8481e+18 
-condition number estimation of ATA: 9.0032e+18 
+condition number estimation of A  : 1.5272e+18 
+condition number estimation of ATA: 2.3381e+19 
 condition number estimation of A1  : 2.2305e+18 
-err between matrices: 5.4391e-15 
-hifie_mv err: 2.9172e-16 
-hifie_sv err/time: 1.1693e+01/1.4187e-02 (s) 
+condition number estimation of ATA1: 1.2102e+19 
+err between matrices: 4.3191e-12 
+rank of hif:     72 
+hifie_mv err: 2.4882e-16 
+hifie_sv err/time: 1.7158e+01/7.4140e-03 (s) 
 N = 1024 
-condition number estimation of A  : 3.0646e+19 
-condition number estimation of ATA: 5.4540e+19 
+condition number estimation of A  : 4.6209e+19 
+condition number estimation of ATA: 6.0504e+19 
 condition number estimation of A1  : 1.3532e+18 
-err between matrices: 2.9192e-14 
-hifie_mv err: 3.1323e-16 
-hifie_sv err/time: 2.9672e+01/1.1475e-02 (s) 
+condition number estimation of ATA1: 1.1479e+20 
+err between matrices: 7.8818e-12 
+rank of hif:    272 
+hifie_mv err: 3.0723e-16 
+hifie_sv err/time: 3.7981e+01/4.3350e-03 (s) 
 N = 4096 
-condition number estimation of A  : 6.9087e+19 
-condition number estimation of ATA: 2.0235e+20 
+condition number estimation of A  : 6.5774e+19 
+condition number estimation of ATA: 3.5916e+20 
 condition number estimation of A1  : 3.6376e+19 
-err between matrices: 2.0025e-11 
-hifie_mv err: 4.6423e-16 
-hifie_sv err/time: 2.0880e+02/6.6461e-02 (s) 
+condition number estimation of ATA1: 2.9322e+20 
+err between matrices: 1.9728e-11 
+rank of hif:   1056 
+hifie_mv err: 5.1962e-16 
+hifie_sv err/time: 2.0117e+02/8.7536e-02 (s) 
 N = 16384 
-condition number estimation of A  : 6.8179e+19 
-condition number estimation of ATA: 1.6542e+21 
+condition number estimation of A  : 1.2930e+20 
+condition number estimation of ATA: 1.8697e+21 
 condition number estimation of A1  : 7.3720e+19 
-err between matrices: 7.4509e-05 
-hifie_mv err: 3.1040e-15 
-hifie_sv err/time: 1.8031e+02/2.1939e+00 (s) 
+condition number estimation of ATA1: 1.8324e+21 
+err between matrices: 2.6903e-04 
+rank of hif:   4160 
+hifie_mv err: 3.0657e-15 
+hifie_sv err/time: 1.9730e+02/4.9022e-01 (s) 
