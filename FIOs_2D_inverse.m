@@ -3,16 +3,16 @@ clear all;
 
 startup;
 
-tol = 1e-10
+tol = 1e-15
 func_name = 'fun1'
 occ = 32;
-rank_or_tol = 1e-6
+rank_or_tol = 1e-13
 repeat_num = 5;
 n0 = 8;
 tt = 5;
 rand_or_cheb = 'rand';
 
-dims = [4:7]
+dims = [4:6]
 cases = length(dims);
 apptime = zeros(cases, 1);
 soltime = zeros(cases, 1);
@@ -26,7 +26,7 @@ for i = 1:cases
     ii = dims(i);
     N = 2^(2*ii);
     n = 2^ii;
-    NG = 4*ii;
+    NG = 5*ii;
     rk = 15*ii;
 
     k = -n/2:n/2-1;
