@@ -4,7 +4,7 @@ clear all;
 startup;
 
 tol = 1e-15
-func_name = 'fun4'
+func_name = 'fun1'
 occ = 32;
 %rank_or_tol = 1e-6
 tol_sol = 1e-8
@@ -133,8 +133,8 @@ for i = 1:cases
     [x, flag, relres, iter] = pcg(ATA, b, tol_sol, maxit);
     fprintf('Solve the equation by PCG without preconditioners    in %4d iterations, rel error: %10.4e \n', iter, relres)
 
-    [x, flag, relres, iter] = pcg(A, b, tol_sol, 100);
-    fprintf('Solve the original equation by PCG                   in %4d iterations, rel error: %10.4e \n', iter, relres)
+    %[x, flag, relres, iter] = pcg(A, b, tol_sol, 100);
+    %fprintf('Solve the original equation by PCG                   in %4d iterations, rel error: %10.4e \n', iter, relres)
 end
 
 N = 2.^(2*dims);
