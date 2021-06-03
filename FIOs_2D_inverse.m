@@ -4,15 +4,17 @@ clear all;
 startup;
 
 tol = 1e-15
-func_name = 'fun1'
+func_name = 'fun4'
 occ = 32;
-rank_or_tol = 1e-13
+%rank_or_tol = 1e-6
+tol_sol = 1e-8
+maxit = 50
 repeat_num = 5;
 n0 = 8;
 tt = 5;
 rand_or_cheb = 'rand';
 
-dims = [4:6]
+dims = [4:7]
 cases = length(dims);
 apptime = zeros(cases, 1);
 soltime = zeros(cases, 1);
@@ -22,13 +24,15 @@ condAs = zeros(cases, 1);
 condATAs = zeros(cases, 1);
 bferr = zeros(cases, 1);
 ranks = zeros(cases, 1);
+solerrpcg = zeros(cases, 1);
+iters = zeros(cases, 1);
 for i = 1:cases
     ii = dims(i);
     N = 2^(2*ii);
     n = 2^ii;
     NG = 5*ii;
     rk = 15*ii;
-
+    rank_or_tol = 15*ii
     k = -n/2:n/2-1;
     [k1,k2] = ndgrid(k);
     kk = [k1(:) k2(:)];
@@ -42,6 +46,12 @@ for i = 1:cases
     switch func_name
         case 'fun1'
             fun = @(x,k)fun_fio_2D(x,k);
+        case 'fun2'
+            fun = @(x,k)fun_fio2_2D(x,k);
+        case 'fun3'
+            fun = @(x,k)fun_fio3_2D(x,k);
+        case 'fun4'
+            fun = @(x,k)fun_fio4_2D(x,k);
 
     end
 
@@ -108,6 +118,23 @@ for i = 1:cases
     fprintf('hifie_sv err/time: %10.4e/%10.4e (s) \n', err_sol, sol_time)
     solerr(i) = err_sol;
     soltime(i) = sol_time;
+
+    %function y = pcd(x)
+    %   y = hifie_sv(F, BF_adj_apply(Factor, x));
+    %end
+    b = rand(N, 1);
+    pcd = @(x)hifie_sv(F, x);
+    [x, flag, relres, iter] = pcg(ATA, b, tol_sol, maxit, pcd);
+    solerrpcg(i) = relres;
+    iters(i) = iter;
+    fprintf('Solve the equation by PCG with F as a preconditioner in %4d iterations, rel error: %10.4e \n', iter, relres)
+    
+    %pcd = @(x)hifie_sv(F, x);
+    [x, flag, relres, iter] = pcg(ATA, b, tol_sol, maxit);
+    fprintf('Solve the equation by PCG without preconditioners    in %4d iterations, rel error: %10.4e \n', iter, relres)
+
+    [x, flag, relres, iter] = pcg(A, b, tol_sol, 100);
+    fprintf('Solve the original equation by PCG                   in %4d iterations, rel error: %10.4e \n', iter, relres)
 end
 
 N = 2.^(2*dims);
@@ -202,5 +229,26 @@ title('Rank');
 hold off;
 legend(h, 'rank', 'sqrt(N)', 'log N');
 saveas(fig, "rank_"+ func_name + "_2D.png");
+
+fig = figure(9);
+hold on;
+h(1) = plot(logN, log10(solerrpcg));
+xlabel('Log(N)');
+ylabel('Log10(error)'); 
+title('Error of Solution via PCG');
+hold off;
+% legend(h, 'App time', 'N log N', 'N log^2 N');
+saveas(fig, "pcgerr_"+ func_name + "_2D.png");
+
+fig = figure(10);
+hold on;
+h(1) = plot(logN, iters);
+xlabel('Log(N)');
+ylabel('Iteration'); 
+title('Iterations in PCG');
+hold off;
+% legend(h, 'App time', 'N log N', 'N log^2 N');
+saveas(fig, "iters_" + func_name + "_2D.png");
+
 
 exit
