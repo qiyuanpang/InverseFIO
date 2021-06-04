@@ -3,10 +3,11 @@ clear all;
 
 startup;
 
-tol = 1e-15
-func_name = 'fun1'
+tol = 1e-13
+fun_name = "fun4"
+func_name = fun_name + "tol_3";
 occ = 32;
-%rank_or_tol = 1e-6
+rank_or_tol = 1e-3
 tol_sol = 1e-8
 maxit = 50
 repeat_num = 5;
@@ -14,7 +15,8 @@ n0 = 8;
 tt = 5;
 rand_or_cheb = 'rand';
 
-dims = [4:7]
+%dims = [16 25 36]
+dims = [16 25 36 49 64 81]
 cases = length(dims);
 apptime = zeros(cases, 1);
 soltime = zeros(cases, 1);
@@ -27,12 +29,11 @@ ranks = zeros(cases, 1);
 solerrpcg = zeros(cases, 1);
 iters = zeros(cases, 1);
 for i = 1:cases
-    ii = dims(i);
-    N = 2^(2*ii);
-    n = 2^ii;
-    NG = 5*ii;
-    rk = 15*ii;
-    rank_or_tol = 15*ii
+    n = dims(i);
+    N = n^2;
+    NG = 3*floor(log2(N));
+    rk = 8*floor(log2(N));
+    %rank_or_tol = 8*floor(log2(N))
     k = -n/2:n/2-1;
     [k1,k2] = ndgrid(k);
     kk = [k1(:) k2(:)];
@@ -43,21 +44,22 @@ for i = 1:cases
         
     fprintf('N = %4d \n', N)
 
-    switch func_name
-        case 'fun1'
+    switch fun_name
+        case "fun1"
             fun = @(x,k)fun_fio_2D(x,k);
-        case 'fun2'
+        case "fun2"
             fun = @(x,k)fun_fio2_2D(x,k);
-        case 'fun3'
+        case "fun3"
             fun = @(x,k)fun_fio3_2D(x,k);
-        case 'fun4'
+        case "fun4"
             fun = @(x,k)fun_fio4_2D(x,k);
 
     end
 
     tic;
     for j = 1:repeat_num
-        [Factor,Rcomp] = IBF_Cheby(fun,xx,kk,NG,tol);
+	[Factor,Rcomp] = CURBF(fun,xx,kk,NG,tol);
+        %[Factor,Rcomp] = IBF_Cheby(fun,xx,kk,NG,tol);
         % Factor = BF_IDBF(fun, xx, kk, n0, rk, tol, rand_or_cheb, tt);
     end
     FactorT = toc/repeat_num;
@@ -69,8 +71,8 @@ for i = 1:cases
     ATA = BF_adj_apply(Factor, A);
     ApplyT = toc;
 
-    condA = condest(A);
-    condATA = condest(ATA);
+    condA = cond(A);
+    condATA = cond(ATA);
     fprintf('condition number estimation of A  : %10.4e \n', condA)
     fprintf('condition number estimation of ATA: %10.4e \n', condATA)
 
@@ -80,8 +82,8 @@ for i = 1:cases
     A1 = fun(xx, kk);
     ATA1 = A1'*A1;
 
-    condA1 = condest(A1);
-    condATA1 = condest(ATA1);
+    condA1 = cond(A1);
+    condATA1 = cond(ATA1);
     fprintf('condition number estimation of A1  : %10.4e \n', condA1)
     fprintf('condition number estimation of ATA1: %10.4e \n', condATA1)
     
@@ -137,7 +139,7 @@ for i = 1:cases
     %fprintf('Solve the original equation by PCG                   in %4d iterations, rel error: %10.4e \n', iter, relres)
 end
 
-N = 2.^(2*dims);
+N = dims.^2;
 logN = log2(N);
 NlogN = logN + log2(logN);
 N2logN = logN + 2*log2(logN);

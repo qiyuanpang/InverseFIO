@@ -3,18 +3,21 @@ clear all;
 
 startup;
 
-tol = 1e-10
-func_name = 'fun5'
+tol = 1e-7
+fun_name = "fun5"
+func_name = fun_name+"tol_6";
 occ = 64;
-%rank_or_tol = 1e-6
+rank_or_tol = 1e-6
 tol_sol = 1e-8
 maxit = 50
 repeat_num = 5;
 n0 = 8;
 tt = 5;
-rand_or_cheb = 'rand';
+rand_or_cheb = 'cheb';
+np = 8
 
-dims = [4:7]
+%dims = [16 25 36]
+dims = [16 25 36 49 64 81]
 cases = length(dims);
 apptime = zeros(cases, 1);
 soltime = zeros(cases, 1);
@@ -27,33 +30,37 @@ ranks = zeros(cases, 1);
 solerrpcg = zeros(cases, 1);
 iters = zeros(cases, 1);
 for i = 1:cases
-    ii = dims(i);
-    N = 2^(2*ii);
-    n = 2^ii;
-    NG = 3*ii;
-    rk = 15*ii;
+    n = dims(i);
+    N = n^2;
+    NG = 5*floor(log2(N));
+    rk = 8*floor(log2(N));
     k = -N/2:N/2-1;
     kk = k(:);
-    rank_or_tol = 13*ii    
+    %rank_or_tol = 8*floor(log2(N))    
 
     x = (0:N-1)/N;
     xx = x(:);
     
+    ax = linspace(xx(1), xx(end), np);
+    ak = linspace(kk(1), kk(end), np);
+
     fprintf('N = %4d \n', N)
 
-    switch func_name
-        case 'fun1'
+    switch fun_name
+        case "fun1"
             fun = @(x,k)fun_fio_1D(x,k);
-        case 'fun2'
+        case "fun2"
             fun = @(x,k)fun_fio2_1D(x,k);
-        case 'fun3'
+        case "fun3"
             fun = @(x,k)fun_fio3_1D(x,k,1);
-        case 'fun4'
+        case "fun4"
             fun = @(x,k)fun_fio4_1D(x,k,1);
-        case 'fun5'
+        case "fun5"
             fun = @(x,k)fun_fio5_1D(x,k);
-        case 'fun6'
-            fun = @(x,k)fun_fio6_1D(x,k);
+        case "fun6"
+            fun = @(x,k)fun_fio6_1D(x,k,ax,ak,0.1);
+        case "fun7"
+            fun = @(x,k)fun_fio6_1D(x,k,ax,ak,0.05);
 
     end
 
@@ -71,8 +78,8 @@ for i = 1:cases
     ATA = BF_adj_apply(Factor, A);
     ApplyT = toc;
 
-    condA = condest(A);
-    condATA = condest(ATA);
+    condA = cond(A);
+    condATA = cond(ATA);
     fprintf('condition number estimation of A  : %10.4e \n', condA)
     fprintf('condition number estimation of ATA: %10.4e \n', condATA)
 
@@ -82,8 +89,8 @@ for i = 1:cases
     A1 = fun(xx, kk);
     ATA1 = A1'*A1;
 
-    condA1 = condest(A1);
-    condATA1 = condest(ATA1);
+    condA1 = cond(A1);
+    condATA1 = cond(ATA1);
     fprintf('condition number estimation of A1  : %10.4e \n', condA1)
     fprintf('condition number estimation of ATA1: %10.4e \n', condATA1)
     
@@ -133,7 +140,7 @@ for i = 1:cases
     fprintf('Solve the equation by PCG without preconditioners    in %4d iterations, rel error: %10.4e \n', iter, relres)
 end
 
-N = 2.^(2*dims);
+N = dims.^2;
 logN = log2(N);
 NlogN = logN + log2(logN);
 N2logN = logN + 2*log2(logN);

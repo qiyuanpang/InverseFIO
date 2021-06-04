@@ -1,0 +1,136 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+              R2019a Update 1 (9.6.0.1099231) 64-bit (glnxa64)
+                               April 12, 2019
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+
+tol =
+
+   1.0000e-07
+
+
+fun_name = 
+
+    "fun1"
+
+
+tol_sol =
+
+   1.0000e-08
+
+
+maxit =
+
+    50
+
+
+np =
+
+     8
+
+
+dims =
+
+    16    25    36    49    64    81
+
+
+rank_or_tol =
+
+    96
+
+N =  256 
+condition number estimation of A  : 3.0780e+00 
+condition number estimation of ATA: 9.4739e+00 
+condition number estimation of A1  : 3.0780e+00 
+condition number estimation of ATA1: 9.4739e+00 
+err between matrices: 1.9645e-08 
+rank of hif:     72 
+hifie_mv err: 3.7477e-16 
+hifie_sv err/time: 1.7940e-08/2.2571e-02 (s) 
+Solve the equation by PCG with F as a preconditioner in    1 iterations, rel error: 9.8290e-16 
+Solve the equation by PCG without preconditioners    in   25 iterations, rel error: 9.9473e-09 
+
+rank_or_tol =
+
+   108
+
+N =  625 
+condition number estimation of A  : 3.1002e+00 
+condition number estimation of ATA: 9.6114e+00 
+condition number estimation of A1  : 3.1002e+00 
+condition number estimation of ATA1: 9.6114e+00 
+err between matrices: 4.9492e-08 
+rank of hif:    108 
+hifie_mv err: 2.8072e-04 
+hifie_sv err/time: 9.0664e-05/6.8694e-03 (s) 
+Solve the equation by PCG with F as a preconditioner in    3 iterations, rel error: 4.2247e-11 
+Solve the equation by PCG without preconditioners    in   26 iterations, rel error: 9.2094e-09 
+
+rank_or_tol =
+
+   120
+
+N = 1296 
+condition number estimation of A  : 3.1044e+00 
+condition number estimation of ATA: 9.6375e+00 
+condition number estimation of A1  : 3.1044e+00 
+condition number estimation of ATA1: 9.6375e+00 
+err between matrices: 5.3425e-08 
+rank of hif:    120 
+hifie_mv err: 1.5981e-03 
+hifie_sv err/time: 1.8609e-04/1.6740e-02 (s) 
+Solve the equation by PCG with F as a preconditioner in    3 iterations, rel error: 1.5774e-09 
+Solve the equation by PCG without preconditioners    in   27 iterations, rel error: 5.1549e-09 
+
+rank_or_tol =
+
+   132
+
+N = 2401 
+condition number estimation of A  : 3.1054e+00 
+condition number estimation of ATA: 9.6434e+00 
+condition number estimation of A1  : 3.1054e+00 
+condition number estimation of ATA1: 9.6434e+00 
+err between matrices: 4.7169e-08 
+rank of hif:    132 
+hifie_mv err: 3.3342e-03 
+hifie_sv err/time: 5.9234e-04/1.0899e-02 (s) 
+Solve the equation by PCG with F as a preconditioner in    3 iterations, rel error: 6.2116e-09 
+Solve the equation by PCG without preconditioners    in   27 iterations, rel error: 5.5965e-09 
+
+rank_or_tol =
+
+   144
+
+N = 4096 
+condition number estimation of A  : 3.1057e+00 
+condition number estimation of ATA: 9.6451e+00 
+condition number estimation of A1  : 3.1057e+00 
+condition number estimation of ATA1: 9.6451e+00 
+err between matrices: 4.8824e-08 
+rank of hif:    144 
+hifie_mv err: 3.7162e-02 
+hifie_sv err/time: 3.6670e-03/6.6454e-01 (s) 
+Solve the equation by PCG with F as a preconditioner in    6 iterations, rel error: 2.9362e-10 
+Solve the equation by PCG without preconditioners    in   27 iterations, rel error: 5.4880e-09 
+
+rank_or_tol =
+
+   144
+
+N = 6561 
+condition number estimation of A  : 3.1057e+00 
+condition number estimation of ATA: 9.6456e+00 
+condition number estimation of A1  : 3.1057e+00 
+condition number estimation of ATA1: 9.6456e+00 
+err between matrices: 7.8232e-08 
+rank of hif:    144 
+hifie_mv err: 3.3010e-02 
+hifie_sv err/time: 5.3460e-03/9.9351e-01 (s) 
+Solve the equation by PCG with F as a preconditioner in    5 iterations, rel error: 5.9872e-09 
+Solve the equation by PCG without preconditioners    in   27 iterations, rel error: 5.3598e-09 

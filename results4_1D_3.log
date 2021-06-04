@@ -1,0 +1,652 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+              R2019a Update 1 (9.6.0.1099231) 64-bit (glnxa64)
+                               April 12, 2019
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+
+tol =
+
+   1.0000e-07
+
+
+fun_name = 
+
+    "fun4"
+
+
+rank_or_tol =
+
+   1.0000e-03
+
+
+tol_sol =
+
+   1.0000e-08
+
+
+maxit =
+
+    50
+
+
+np =
+
+     8
+
+
+dims =
+
+    16    25    36    49    64    81
+
+N =  256 
+condition number estimation of A  : 7.4631e+16 
+condition number estimation of ATA: 3.5472e+17 
+condition number estimation of A1  : 1.4590e+17 
+condition number estimation of ATA1: 6.0837e+17 
+err between matrices: 1.7992e-09 
+rank of hif:     72 
+hifie_mv err: 2.7679e-16 
+hifie_sv err/time: 1.5120e+01/3.3679e-02 (s) 
+Solve the equation by PCG with F as a preconditioner in    0 iterations, rel error: 1.0000e+00 
+Solve the equation by PCG without preconditioners    in    3 iterations, rel error: 4.5023e-01 
+N =  625 
+condition number estimation of A  : 4.6855e+16 
+condition number estimation of ATA: 2.4504e+18 
+condition number estimation of A1  : 6.0072e+16 
+condition number estimation of ATA1: 4.4507e+18 
+err between matrices: 1.8561e-07 
+rank of hif:    169 
+hifie_mv err: 2.6808e-16 
+hifie_sv err/time: 2.0976e+01/1.1608e-01 (s) 
+Solve the equation by PCG with F as a preconditioner in    0 iterations, rel error: 1.0000e+00 
+Solve the equation by PCG without preconditioners    in    1 iterations, rel error: 4.1921e-01 
+N = 1296 
+condition number estimation of A  : 7.9784e+17 
+condition number estimation of ATA: 4.0393e+18 
+condition number estimation of A1  : 1.0267e+17 
+condition number estimation of ATA1: 1.0376e+19 
+err between matrices: 3.3401e-02 
+rank of hif:    339 
+hifie_mv err: 4.4239e-16 
+hifie_sv err/time: 1.4169e+02/2.9379e-01 (s) 
+Solve the equation by PCG with F as a preconditioner in    0 iterations, rel error: 1.0000e+00 
+Solve the equation by PCG without preconditioners    in    1 iterations, rel error: 3.9825e-01 
+N = 2401 
+condition number estimation of A  : 4.3915e+17 
+condition number estimation of ATA: 1.3757e+19 
+condition number estimation of A1  : 3.8673e+16 
+condition number estimation of ATA1: 9.5084e+18 
+err between matrices: 1.5832e-06 
+rank of hif:    625 
+hifie_mv err: 6.9355e-16 
+hifie_sv err/time: 9.9584e+01/5.7831e-01 (s) 
+Solve the equation by PCG with F as a preconditioner in    0 iterations, rel error: 1.0000e+00 
+Solve the equation by PCG without preconditioners    in    1 iterations, rel error: 5.7565e-01 
+N = 4096 
+condition number estimation of A  : 3.8378e+18 
+condition number estimation of ATA: 5.3767e+19 
+condition number estimation of A1  : 1.4167e+17 
+condition number estimation of ATA1: 1.9752e+19 
+err between matrices: 1.2138e-04 
+rank of hif:   1056 
+hifie_mv err: 8.4735e-16 
+hifie_sv err/time: 1.6244e+03/9.8914e-01 (s) 
+Solve the equation by PCG with F as a preconditioner in    0 iterations, rel error: 1.0000e+00 
+Solve the equation by PCG without preconditioners    in    1 iterations, rel error: 4.3098e-01 
+N = 6561 
+condition number estimation of A  : 1.7174e+19 
+condition number estimation of ATA: 4.4475e+20 
+condition number estimation of A1  : 3.0353e+17 
+condition number estimation of ATA1: 5.5531e+19 
+err between matrices: 2.2986e+00 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In hifie2_base (line 234)
+  In hifie2my (line 2)
+  In FIOs_1D_inverse (line 108)
+] 
+rank of hif:   1681 
+hifie_mv err: 2.4103e-15 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse (line 123)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse (line 123)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse (line 123)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse (line 123)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse (line 123)
+] 
+hifie_sv err/time: 1.4026e+04/1.1465e-01 (s) 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+[Warning: Matrix is close to singular or badly scaled. Results may be
+inaccurate. RCOND =  2.033975e-16.] 
+[> In rskelf_sv_nn (line 25)
+  In rskelf_sv (line 26)
+  In hifie_sv (line 21)
+  In FIOs_1D_inverse>@(x)hifie_sv(F,x)
+  In iterapp (line 56)
+  In pcg (line 189)
+  In FIOs_1D_inverse (line 133)
+] 
+Solve the equation by PCG with F as a preconditioner in    0 iterations, rel error: 1.0000e+00 
+Solve the equation by PCG without preconditioners    in    0 iterations, rel error: 1.0000e+00 
