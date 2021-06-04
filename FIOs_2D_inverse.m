@@ -4,10 +4,10 @@ clear all;
 startup;
 
 tol = 1e-13
-fun_name = "fun4"
-func_name = fun_name + "tol_3";
+fun_name = "fun1"
+func_name = fun_name + "_fft";
 occ = 32;
-rank_or_tol = 1e-3
+%rank_or_tol = 1e-6
 tol_sol = 1e-8
 maxit = 50
 repeat_num = 5;
@@ -33,7 +33,7 @@ for i = 1:cases
     N = n^2;
     NG = 3*floor(log2(N));
     rk = 8*floor(log2(N));
-    %rank_or_tol = 8*floor(log2(N))
+    rank_or_tol = floor(log2(N))
     k = -n/2:n/2-1;
     [k1,k2] = ndgrid(k);
     kk = [k1(:) k2(:)];

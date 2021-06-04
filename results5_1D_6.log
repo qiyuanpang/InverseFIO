@@ -93,3 +93,19 @@ condition number estimation of ATA: 1.0818e+00
 condition number estimation of A1  : 1.0401e+00 
 condition number estimation of ATA1: 1.0818e+00 
 err between matrices: 4.3952e-08 
+rank of hif:    918 
+hifie_mv err: 4.6995e-06 
+hifie_sv err/time: 2.8581e-07/2.3762e-02 (s) 
+Solve the equation by PCG with F as a preconditioner in    2 iterations, rel error: 7.7674e-13 
+Solve the equation by PCG without preconditioners    in    5 iterations, rel error: 2.2087e-09 
+N = 6561 
+condition number estimation of A  : 1.0401e+00 
+condition number estimation of ATA: 1.0818e+00 
+condition number estimation of A1  : 1.0401e+00 
+condition number estimation of ATA1: 1.0818e+00 
+err between matrices: 8.0147e-08 
+rank of hif:   1513 
+hifie_mv err: 4.3968e-06 
+hifie_sv err/time: 2.8826e-07/5.9822e-02 (s) 
+Solve the equation by PCG with F as a preconditioner in    2 iterations, rel error: 7.4096e-13 
+Solve the equation by PCG without preconditioners    in    5 iterations, rel error: 2.1898e-09 

@@ -1,0 +1,32 @@
+29554 results1_2D
+29704 results2_2D
+29855 results3_2D
+30042 results4_2D
+30229 results1_2D_3
+30381 results2_2D_3
+30535 results3_2D_3
+30685 results4_2d_3
+
+31346 results1_1D_6
+31502 results2_1D_6
+31652 results3_1D_6
+31802 results4_1D_6
+31951 results5_1D_6
+1602  results1_1D_3
+1773  results2_1D_3
+1926  results3_1D_3
+2077  results4_1D_3
+2234  results5_1D_3
+
+786   results1_1D_f6
+952   results2_1D_f6
+1103  results3_1D_f6
+1268  results4_1D_f6
+1428  results5_1D_f6
+
+2392  results1_1D_f3
+2560  results2_1D_f3
+2711  results3_1D_f3
+2861  results4_1D_f3
+3012  results5_1D_f3
+
