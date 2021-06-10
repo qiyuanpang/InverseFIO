@@ -3,9 +3,10 @@ clear all;
 
 startup;
 
-tol = 1e-7
-fun_name = "fun5"
-func_name = fun_name+"tol_6";
+tol = 1e-14
+kernel = "7"
+fun_name = "fun" + kernel;
+func_name = fun_name+"_tol_6";
 occ = 64;
 rank_or_tol = 1e-6
 tol_sol = 1e-8
@@ -58,9 +59,9 @@ for i = 1:cases
         case "fun5"
             fun = @(x,k)fun_fio5_1D(x,k);
         case "fun6"
-            fun = @(x,k)fun_fio6_1D(x,k,ax,ak,0.1);
+            fun = @(x,k)fun_fio6_1D(N, x, k, 0.1);
         case "fun7"
-            fun = @(x,k)fun_fio6_1D(x,k,ax,ak,0.05);
+            fun = @(x,k)fun_fio6_1D(N, x, k, 0.05);
 
     end
 
@@ -156,7 +157,7 @@ ylabel('Log(Time)/s');
 title('Time scaling of Application');
 legend(h, 'App time', 'N log N', 'N log^2 N');
 axis square;
-saveas(fig, "apptime_" + func_name + ".png");
+saveas(fig, "./results/hif/1D/kernel" + kernel + "/apptime_" + func_name + ".png");
 
 fig = figure(2);
 hold on;
@@ -168,17 +169,17 @@ ylabel('Log(Time)/s');
 title('Time scaling of Solving equations');
 hold off;
 legend(h, 'Sol time', 'N log N', 'N log^2 N');
-saveas(fig, "soltime_" + func_name + ".png");
+saveas(fig, "./results/hif/1D/kernel" + kernel + "/soltime_" + func_name + ".png");
 
 fig = figure(3);
 hold on;
 h(1) = plot(logN, log10(apperr));
-xlabel('Log(N)');
+xlabel('Log(N)')
 ylabel('Log10(error)'); 
 title('Error of Application');
 hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "apperr_" + func_name + ".png");
+saveas(fig, "./results/hif/1D/kernel" + kernel + "/apperr_" + func_name + ".png");
 
 fig = figure(4);
 hold on;
@@ -188,7 +189,7 @@ ylabel('Log10(error)');
 title('Error of Solution');
 hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "solerr_"+ func_name + ".png");
+saveas(fig, "./results/hif/1D/kernel" + kernel + "/solerr_"+ func_name + ".png");
 
 fig = figure(5);
 hold on;
@@ -198,7 +199,7 @@ ylabel('Log10(cond num)');
 title('Condition numbers');
 hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "conda_"+ func_name + ".png");
+saveas(fig, "./results/hif/1D/kernel" + kernel + "/conda_"+ func_name + ".png");
 
 fig = figure(6);
 hold on;
@@ -208,7 +209,7 @@ ylabel('Log10(cond num)');
 title('Condition numbers');
 hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "condata_" + func_name + ".png");
+saveas(fig, "./results/hif/1D/kernel" + kernel + "/condata_" + func_name + ".png");
 
 fig = figure(7);
 hold on;
@@ -218,7 +219,7 @@ ylabel('Log10(error)');
 title('Error of BF');
 hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "bferr_"+ func_name + ".png");
+saveas(fig, "./results/hif/1D/kernel" + kernel + "/bferr_"+ func_name + ".png");
 
 
 fig = figure(8);
@@ -231,7 +232,7 @@ ylabel('Log2(rank)');
 title('Rank');
 hold off;
 legend(h, 'rank', 'sqrt(N)', 'log N');
-saveas(fig, "rank_"+ func_name + ".png");
+saveas(fig, "./results/hif/1D/kernel" + kernel + "/rank_"+ func_name + ".png");
 
 fig = figure(9);
 hold on;
@@ -241,7 +242,7 @@ ylabel('Log10(error)');
 title('Error of Solution via PCG');
 hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "pcgerr_"+ func_name + ".png");
+saveas(fig, "./results/hif/1D/kernel" + kernel + "/pcgerr_"+ func_name + ".png");
 
 fig = figure(10);
 hold on;
@@ -251,7 +252,6 @@ ylabel('Iteration');
 title('Iterations in PCG');
 hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "iters_" + func_name + ".png");
+saveas(fig, "./results/hif/1D/kernel" + kernel + "/iters_" + func_name + ".png");
 
-
-exit
+exit;

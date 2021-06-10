@@ -1,0 +1,720 @@
+\documentclass[11pt]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,matrix,patterns,positioning}
+\usepackage{color}
+%\usepackage[parfill]{parskip}
+\usepackage{graphicx}
+\usepackage{algorithmic}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage[ruled]{algorithm2e}
+\usepackage{float}
+\usepackage{amsmath,amsthm,bm,color,epsfig,enumerate,caption}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+
+%\linespread{2}
+
+% to highlight the latest changes
+\newcommand{\alert}[1]{\textcolor{red}{#1}}
+
+\newcommand{\hz}[1]{{\textbf{HZ: #1}}}
+\newcommand{\yl}[1]{\textcolor{orange}{\textbf{Ryan: #1}}}
+\newcommand{\erm}[1]{\textcolor{red}{\textbf{EM: #1}}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{outline}[theorem]{Outline}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{algo}[theorem]{Algorithm}
+\newtheorem{remark}[theorem]{Remark}
+\renewcommand{\appendix}[1]{
+\section*{Appendix: #1}
+}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+%\newcommand{\herm}[1]{(#1)^*}
+%\renewcommand{\L}{\mathcal{L}}
+%\renewcommand{\O}{\mathcal{O}}
+\renewcommand{\O}{O}
+%\newcommand{\K}{\mathcal{K}}
+%\newcommand{\F}{\mathcal{F}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\bbF}{\mathbb{F}}
+\newcommand{\bbC}{\mathbb{C}}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\rID}{{\it rID}}
+\newcommand{\cID}{{\it cID}}
+\newcommand{\blue}{\textcolor{blue}}
+
+\makeatletter
+\newcommand*{\extendadd}{
+  \mathbin{
+    \mathpalette\extend@add{}
+  }
+}
+\newcommand*{\extend@add}[2]{
+  \ooalign{
+    $\m@th#1\leftrightarrow$%
+    \vphantom{$\m@th#1\updownarrow$}
+    \cr
+    \hfil$\m@th#1\updownarrow$\hfil
+  }
+}
+\makeatother
+
+\begin{document}
+
+\title{Numberical Results Summary}
+%\author{Qiyuan Pang \\ Tsinghua University, China\\  \href{mailto:ppangqqyz@foxmail.com}{ppangqqyz@foxmail.com} 
+%   \and Kenneth L. Ho \\ San Francisco, CA, USA\\ \href{mailto:klho@alumni.caltech.edu}{klho@alumni.caltech.edu}
+%     \and Haizhao Yang \\ Department of Mathematics\\ National University of Singapore, Singapore\\ \href{mailto:haizhao@nus.edu.sg}{haizhao@nus.edu.sg} }
+\author{Qiyuan Pang}
+
+\maketitle
+
+According to the preprint, we solve $K x = b$ by solving 
+\begin{equation*}
+\hat{K}^{*}\hat{K}x = \hat{K}^{*}b,
+\end{equation*}
+preconditioned with and without $\hat{G} = (\hat{K}^{*}\hat{K})^{-1}$. The following quantities are used in the rest of the section to
+evaluate the performance of the preconditioner:
+
+\begin{itemize}
+\item N: problem size;
+\item $e_{a}$: the relative error set for the butterfly approximation $\hat{K}$ of $K$;
+\item $\epsilon$: the fixed tolerance set in HIF;
+\item $r$: the fixed maximum rank set in HIF;
+\item $e_{s}$: the relative error of the approximation $\hat{G}\hat{K}^{*}$ of $K^{-1}$, defined as $\|\hat{G}\hat{K}^{*}b - x\|/\|x\|$ where $x$ is a random vector and $b = Kx$;
+\item $n_{i}$: the number of iterations used in PCG until covergence;
+\item $e$: the relative error of the solution returned by PCG.
+\end{itemize}
+
+Among all experiments below, the stopping criteria set for PCG is tolerance $1e-8$.
+
+\textbf{Examples (1D).} We begin with an example of 1D discrete FIO of the form
+\begin{equation*}
+u(x) = \int\limits_{\mathbb{R}}a(x)e^{2\pi i \Phi(x, \xi)}\hat{f}(\xi) d\xi
+\end{equation*}
+with uniform amplitude $a(x,\xi)=1$. 
+
+There are five 1D kernels to test here, as follows:
+
+\begin{equation}
+\Phi(x,\xi) = x\cdot\xi + c(x)|\xi|, c(x) = (2+\sin(2\pi x))/8,
+\end{equation}
+
+\begin{equation}
+\Phi(x,\xi) = x\cdot\xi + c(x)\xi, c(x) = (2+0.2 \sin(2\pi x))/16,
+\end{equation}
+
+\begin{equation}
+\Phi(x,\xi) = x\cdot\xi + (2+0.2 \sin(2\pi x))(2+0.5\cos(2\pi \xi)+\xi^2),
+\end{equation}
+
+\begin{equation}
+\Phi(x,\xi) = (x + \sin(2\pi x))(\xi + \cos(2\pi \xi)),
+\end{equation}
+
+\begin{equation}
+\Phi(x,\xi) = x\cdot\xi + c(x)|\xi|, c(x) = (2+\sin(2\pi x))/32,
+\end{equation}
+
+Discretizing $x$ and $\xi$ on $[0,1)$ and $[-N/2, N/2)$ with $N$ points,
+\begin{equation*}
+x_{i} = (i-1)/N, \xi_{j} = j-1-N/2.
+\end{equation*}
+leads to the discrete system $u = Kf$.
+
+Table \ref{1d-k1} and \ref{1d-k1f} summarize the results for 1D kernel (1).
+Table \ref{1d-k2} and \ref{1d-k2f} summarize the results for 1D kernel (2).
+Table \ref{1d-k3} and \ref{1d-k3f} summarize the results for 1D kernel (3).
+Table \ref{1d-k4} and \ref{1d-k4f} summarize the results for 1D kernel (4).
+Table \ref{1d-k5} and \ref{1d-k5f} summarize the results for 1D kernel (5).
+
+\textbf{Examples (2D).} Then, we consider some 2D analogs of the 1D examples,
+\begin{equation*}
+u(x) = \sum\limits_{\xi\in \Omega}e^{2\pi \Phi(x,\xi)}\hat{f}(\xi),x\in X,
+\end{equation*}
+and 
+\begin{equation*}
+X = \{x=(\dfrac{n_{1}}{n}, \dfrac{n_{2}}{n}), 0\leq n_{1},n_{2} < n, with n_{1}, n_{2} \in\mathbb{Z}\},
+\end{equation*}
+\begin{equation*}
+\Omega = \{\xi=(n_{1}, n_{2}), -\dfrac{n}{2}\leq n_{1},n_{2} < \dfrac{n}{2}, with n_{1}, n_{2} \in\mathbb{Z}\},
+\end{equation*}
+with n being the number of points in each dimension and $N = n^2$.
+
+We consider four kernels as follows:
+
+\begin{equation}
+\Phi(x,\xi)=x\cdot\xi+\sqrt{c_{1}^{2}(x)\xi_{1}^{2}+c_{2}^{2}(x)\xi_{2}^{2}}, c_{1}(x)=(2+\sin(2\pi x_{1})\sin(2\pi x_{2}))/32, c_{2}(x)=(2+\cos(2\pi x_{1})\cos(2\pi x_{2}))/32,
+\end{equation}
+
+\begin{equation}
+\Phi(x,\xi)=x\cdot\xi+\sqrt{c_{1}^{2}(x)\xi_{1}^{2}+c_{2}^{2}(x)\xi_{2}^{2}}, c_{1}(x)=(2+\sin(2\pi x_{1})\sin(2\pi x_{2}))/16, c_{2}(x)=(2+\cos(2\pi x_{1})\cos(2\pi x_{2}))/16,
+\end{equation}
+
+\begin{equation}
+\Phi(x,\xi)=x\cdot\xi+\sqrt{c_{1}^{2}(x)\xi_{1}^{2}+c_{2}^{2}(x)\xi_{2}^{2}}, c_{1}(x)=(2+\sin(2\pi x_{1})\sin(2\pi x_{2}))/8, c_{2}(x)=(2+\cos(2\pi x_{1})\cos(2\pi x_{2}))/8,
+\end{equation}
+
+\begin{equation}
+\Phi(x,\xi)=x\cdot\xi+\sqrt{c_{1}^{2}(x)\xi_{1}^{2}+c_{2}^{2}(x)\xi_{2}^{2}}, c_{1}(x)=(2+\sin(2\pi x_{1})\sin(2\pi x_{2}))/4, c_{2}(x)=(2+\cos(2\pi x_{1})\cos(2\pi x_{2}))/4,
+\end{equation}
+
+Table \ref{2d-k1} and \ref{2d-k1f} summarize the results for 2D kernel (6).
+Table \ref{2d-k2} and \ref{2d-k2f} summarize the results for 2D kernel (7).
+Table \ref{2d-k3} and \ref{2d-k3f} summarize the results for 2D kernel (8).
+Table \ref{2d-k4} and \ref{2d-k4f} summarize the results for 2D kernel (9).
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{c|}{}& \multicolumn{1}{c|}{$\hat{K} \approx K$} & \multicolumn{4}{c|}{$\hat{G}\hat{K}^{*}\approx K^{-1}$}& \multicolumn{2}{c|}{$\hat{K}^{*} \approx \hat{K}^{*}$}\\
+\hline
+N & $e_{a}$ & $\epsilon$ & $e_{s}$ & $n_{i}$ & $e$ & $n_{i}$ & $e$ \\ 
+\hline
+\multirow{2}*{256} & \multirow{2}*{1e-7} & 1e-6 & 2.1336e-07 & 2 & 2.4560e-13 & 25 & 9.9473e-09 \\
+~ & ~ & 1e-3 & 3.3399e-04 & 3 & 2.4695e-10 & 25 & 9.9473e-09 \\
+\hline
+\multirow{2}*{625} & \multirow{2}*{1e-7} & 1e-6 & 3.6876e-07 & 2 & 2.9753e-13 & 26 & 9.2094e-09 \\
+~ & ~ & 1e-3 & 2.3161e-04 & 3 & 1.0952e-10 & 26 & 9.2094e-09 \\
+\hline
+\multirow{2}*{1296} & \multirow{2}*{1e-7} & 1e-6 & 4.0501e-07 & 2 & 5.4640e-13 & 27 & 5.1549e-09 \\
+~ & ~ & 1e-3 & 2.4908e-04 & 3 & 1.0500e-10 & 27 & 5.1549e-09 \\
+\hline
+\multirow{2}*{2401} & \multirow{2}*{1e-7} & 1e-6 & 2.0698e-07 & 2 & 2.4927e-13 & 27 & 5.5965e-09 \\
+~ & ~ & 1e-3 & 2.7872e-04 & 3 & 2.5319e-10 & 27 & 5.5965e-09 \\
+\hline
+\multirow{2}*{4096} & \multirow{2}*{1e-7} & 1e-6 & 3.7231e-07 & 2 & 1.1721e-12 & 27 & 5.4880e-09 \\
+~ & ~ & 1e-3 & 4.4070e-04 & 3 & 3.7392e-10 & 27 & 5.4880e-09 \\
+\hline
+\multirow{2}*{6561} & \multirow{2}*{1e-7} & 1e-6 & 3.4479e-07 & 2 & 8.3411e-13 & 27 & 5.3598e-09 \\
+~ & ~ & 1e-3 & 2.1708e-04 & 3 & 2.3232e-10 & 27 & 5.3598e-09 \\
+
+\end{tabular}
+
+\caption{Numerical results for 1D uniform amplitude FIO (1) using the approximate inverse $\hat{G}\hat{K}^{*}$ and the adjoint FIO matrix $\hat{K}^{*}$ as preconditioners for PCG with tolerance $1e-8$.}
+\label{1d-k1}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{c|}{}& \multicolumn{1}{c|}{$\hat{K} \approx K$} & \multicolumn{4}{c|}{$\hat{G}\hat{K}^{*}\approx K^{-1}$}& \multicolumn{2}{c|}{$\hat{K}^{*} \approx \hat{K}^{*}$}\\
+\hline
+N & $e_{a}$ & $\epsilon$ & $e_{s}$ & $n_{i}$ & $e$ & $n_{i}$ & $e$ \\ 
+\hline
+\multirow{2}*{256} & \multirow{2}*{1e-7} & 1e-6 & 5.5818e+00 & 50 & 5.8919e-05 & 48 & 1.5806e-02 \\
+~ & ~ & 1e-3 & 2.9826e+00 & 29 & 5.0284e-03 & 48 & 1.5806e-02 \\
+\hline
+\multirow{2}*{625} & \multirow{2}*{1e-7} & 1e-6 & 1.4768e+00 & 0 & 1.0000e+00 & 2 & 1.4901e-01 \\
+~ & ~ & 1e-3 & 7.6218e+00 & 0 & 1.0000e+00 & 2 & 1.4901e-01 \\
+\hline
+\multirow{2}*{1296} & \multirow{2}*{1e-7} & 1e-6 & 3.4273e+00 & 0 & 1.0000e+00 & 2 & 1.9735e-01 \\
+~ & ~ & 1e-3 & 1.3683e+00 & 0 & 1.0000e+00 & 2 & 1.9735e-01 \\
+\hline
+\multirow{2}*{2401} & \multirow{2}*{1e-7} & 1e-6 & 7.8132e+00 & 1 & 9.5723e-01 & 2 & 9.6268e-02 \\
+~ & ~ & 1e-3 & 3.1408e+01 & 1 & 9.3398e-01 & 2 & 9.6268e-02 \\
+\hline
+\multirow{2}*{4096} & \multirow{2}*{1e-7} & 1e-6 & 2.2074e+01 & 0 & 1.0000e+00 & 1 & 3.0659e-01 \\
+~ & ~ & 1e-3 & 4.0021e+00 & 0 & 1.0000e+00 & 1 & 3.0659e-01 \\
+\hline
+\multirow{2}*{6561} & \multirow{2}*{1e-7} & 1e-6 & 2.4005e+01 & 0 & 1.0000e+00 & 1 & 3.1116e-01 \\
+~ & ~ & 1e-3 & 2.5085e+00 & 0 & 1.0000e+00 & 1 & 3.1116e-01 \\
+
+
+\end{tabular}
+
+\caption{Numerical results for 1D uniform amplitude FIO (2) using the approximate inverse $\hat{G}\hat{K}^{*}$ and the adjoint FIO matrix $\hat{K}^{*}$ as preconditioners for PCG with tolerance $1e-8$.}
+\label{1d-k2}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{c|}{}& \multicolumn{1}{c|}{$\hat{K} \approx K$} & \multicolumn{4}{c|}{$\hat{G}\hat{K}^{*}\approx K^{-1}$}& \multicolumn{2}{c|}{$\hat{K}^{*} \approx \hat{K}^{*}$}\\
+\hline
+N & $e_{a}$ & $\epsilon$ & $e_{s}$ & $n_{i}$ & $e$ & $n_{i}$ & $e$ \\ 
+\hline
+\multirow{2}*{256} & \multirow{2}*{1e-7} & 1e-6 & 3.2323e-11 & 1 & 2.3212e-11 & 46 & 4.1806e-01 \\
+~ & ~ & 1e-3 & 3.2323e-11 & 1 & 2.3212e-11 & 46 & 4.1806e-01 \\
+\hline
+\multirow{2}*{625} & \multirow{2}*{1e-7} & 1e-6 & 4.7458e-11 & 1 & 5.2122e-11 & 7 & 4.3607e-01 \\
+~ & ~ & 1e-3 & 4.7458e-11 & 1 & 5.2122e-11 & 7 & 4.3607e-01 \\
+\hline
+\multirow{2}*{1296} & \multirow{2}*{1e-7} & 1e-6 & 2.2310e+01 & 1 & 5.1605e-10 & 32 & 4.6936e-01 \\
+~ & ~ & 1e-3 & 2.2310e+01 & 1 & 5.1605e-10 & 32 & 4.6936e-01 \\
+\hline
+\multirow{2}*{2401} & \multirow{2}*{1e-7} & 1e-6 & 1.2082e-04 & 1 & 1.8969e-10 & 8 & 4.8654e-01 \\
+~ & ~ & 1e-3 & 1.2082e-04 & 1 & 1.8969e-10 & 8 & 4.8654e-01 \\
+\hline
+\multirow{2}*{4096} & \multirow{2}*{1e-7} & 1e-6 & 1.7371e+01 & 1 & 3.0852e-09 & 0 & 1.0000e+00 \\
+~ & ~ & 1e-3 & 1.7371e+01 & 1 & 3.0852e-09 & 0 & 1.0000e+00 \\
+\hline
+\multirow{2}*{6561} & \multirow{2}*{1e-7} & 1e-6 & 2.9124e+01 & 2 & 6.6032e-09 & 0 & 1.0000e+00 \\
+~ & ~ & 1e-3 & 2.9124e+01 & 2 & 6.6032e-09 & 0 & 1.0000e+00 \\
+
+
+\end{tabular}
+
+\caption{Numerical results for 1D uniform amplitude FIO (3) using the approximate inverse $\hat{G}\hat{K}^{*}$ and the adjoint FIO matrix $\hat{K}^{*}$ as preconditioners for PCG with tolerance $1e-8$.}
+\label{1d-k3}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{c|}{}& \multicolumn{1}{c|}{$\hat{K} \approx K$} & \multicolumn{4}{c|}{$\hat{G}\hat{K}^{*}\approx K^{-1}$}& \multicolumn{2}{c|}{$\hat{K}^{*} \approx \hat{K}^{*}$}\\
+\hline
+N & $e_{a}$ & $\epsilon$ & $e_{s}$ & $n_{i}$ & $e$ & $n_{i}$ & $e$ \\ 
+\hline
+\multirow{2}*{256} & \multirow{2}*{1e-7} & 1e-6 & 1.7666e-08 & 2 & 5.8438e-16 & 5 & 2.4401e-09 \\
+~ & ~ & 1e-3 & 1.5120e+01 & 0 & 1.0000e+00 & 3 & 4.5023e-01 \\
+\hline
+\multirow{2}*{625} & \multirow{2}*{1e-7} & 1e-6 & 4.5527e-08 & 2 & 4.6174e-15 & 5 & 2.3783e-09 \\
+~ & ~ & 1e-3 & 2.0976e+01 & 0 & 1.0000e+00 & 1 & 4.1921e-01 \\
+\hline
+\multirow{2}*{1296} & \multirow{2}*{1e-7} & 1e-6 & 3.7013e-08 & 2 & 4.5873e-15 & 5 & 2.1702e-09 \\
+~ & ~ & 1e-3 & 1.4169e+02 & 0 & 1.0000e+00 & 1 & 3.9825e-01 \\
+\hline
+\multirow{2}*{2401} & \multirow{2}*{1e-7} & 1e-6 & 9.9584e+01 & 0 & 1.0000e+00 & 1 & 5.7565e-01 \\
+~ & ~ & 1e-3 & 9.9584e+01 & 0 & 1.0000e+00 & 1 & 5.7565e-01 \\
+\hline
+\multirow{2}*{4096} & \multirow{2}*{1e-7} & 1e-6 & 1.6244e+03 & 0 & 1.0000e+00 & 1 & 4.3098e-01 \\
+~ & ~ & 1e-3 & 1.6244e+03 & 0 & 1.0000e+00 & 1 & 4.3098e-01 \\
+\hline
+\multirow{2}*{6561} & \multirow{2}*{1e-7} & 1e-6 & 1.4026e+04 & 0 & 1.0000e+00 & 0 & 1.0000e+00 \\
+~ & ~ & 1e-3 & 1.4026e+04 & 0 & 1.0000e+00 & 0 & 1.0000e+00 \\
+
+
+\end{tabular}
+
+\caption{Numerical results for 1D uniform amplitude FIO (4) using the approximate inverse $\hat{G}\hat{K}^{*}$ and the adjoint FIO matrix $\hat{K}^{*}$ as preconditioners for PCG with tolerance $1e-8$.}
+\label{1d-k4}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{c|}{}& \multicolumn{1}{c|}{$\hat{K} \approx K$} & \multicolumn{4}{c|}{$\hat{G}\hat{K}^{*}\approx K^{-1}$}& \multicolumn{2}{c|}{$\hat{K}^{*} \approx \hat{K}^{*}$}\\
+\hline
+N & $e_{a}$ & $\epsilon$ & $e_{s}$ & $n_{i}$ & $e$ & $n_{i}$ & $e$ \\ 
+\hline
+\multirow{2}*{256} & \multirow{2}*{1e-7} & 1e-6 & 1.7666e-08 & 2 & 5.8438e-16 & 5 & 2.4401e-09 \\
+~ & ~ & 1e-3 & 1.7696e-06 & 2 & 6.1726e-12 & 5 & 2.4401e-09 \\
+\hline
+\multirow{2}*{625} & \multirow{2}*{1e-7} & 1e-6 & 4.5527e-08 & 2 & 4.6174e-15 & 5 & 2.3783e-09 \\
+~ & ~ & 1e-3 & 2.0556e-06 & 2 & 6.6328e-12 & 5 & 2.3783e-09 \\
+\hline
+\multirow{2}*{1296} & \multirow{2}*{1e-7} & 1e-6 & 3.7013e-08 & 2 & 4.5873e-15 & 5 & 2.1702e-09 \\
+~ & ~ & 1e-3 & 2.9471e-06 & 2 & 8.2380e-12 & 5 & 2.1702e-09 \\
+\hline
+\multirow{2}*{2401} & \multirow{2}*{1e-7} & 1e-6 & 5.6659e-08 & 2 & 9.6044e-15 & 5 & 2.2438e-09 \\
+~ & ~ & 1e-3 & 2.1969e-06 & 2 & 6.7013e-12 & 5 & 2.2438e-09 \\
+\hline
+\multirow{2}*{4096} & \multirow{2}*{1e-7} & 1e-6 & 2.8581e-07 & 2 & 7.7674e-13 & 5 & 2.2087e-09 \\
+~ & ~ & 1e-3 & 1.8748e-06 & 2 & 6.2216e-12 & 5 & 2.2087e-09 \\
+\hline
+\multirow{2}*{6561} & \multirow{2}*{1e-7} & 1e-6 & 2.8826e-07 & 2 & 7.4096e-13 & 5 & 2.1898e-09 \\
+~ & ~ & 1e-3 & 2.3606e-06 & 2 & 7.0394e-12 & 5 & 2.1898e-09 \\
+
+
+\end{tabular}
+
+\caption{Numerical results for 1D uniform amplitude FIO (5) using the approximate inverse $\hat{G}\hat{K}^{*}$ and the adjoint FIO matrix $\hat{K}^{*}$ as preconditioners for PCG with tolerance $1e-8$.}
+\label{1d-k5}
+\end{table}
+
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{c|}{}& \multicolumn{1}{c|}{$\hat{K} \approx K$} & \multicolumn{4}{c|}{$\hat{G}\hat{K}^{*}\approx K^{-1}$}& \multicolumn{2}{c|}{$\hat{K}^{*} \approx \hat{K}^{*}$}\\
+\hline
+N & $e_{a}$ & $r$ & $e_{s}$ & $n_{i}$ & $e$ & $n_{i}$ & $e$ \\ 
+\hline
+\multirow{2}*{256} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 1.7940e-08 & 1 & 9.8290e-16 & 25 & 9.9473e-09 \\
+~ & ~ & $8 log_{2}N$ & 2.1437e-05 & 2 & 2.8929e-09 & 25 & 9.9473e-09 \\
+\hline
+\multirow{2}*{625} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 9.0664e-05 & 3 & 4.2247e-11 & 26 & 9.2094e-09 \\
+~ & ~ & $8 log_{2}N$ & 1.9254e-03 & 4 & 7.9901e-09 & 26 & 9.2094e-09 \\
+\hline
+\multirow{2}*{1296} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 1.8609e-04 & 3 & 1.5774e-09 & 27 & 5.1549e-09 \\
+~ & ~ & $8 log_{2}N$ & 1.2149e-03 & 5 & 1.2136e-10 & 27 & 5.1549e-09 \\
+\hline
+\multirow{2}*{2401} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 5.9234e-04 & 3 & 6.2116e-09 & 27 & 5.5965e-09 \\
+~ & ~ & $8 log_{2}N$ & 6.1468e-03 & 6 & 2.1640e-10 & 27 & 5.5965e-09 \\
+\hline
+\multirow{2}*{4096} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 3.6670e-03 & 6 & 2.9362e-10 & 27 & 5.4880e-09 \\
+~ & ~ & $8 log_{2}N$ & 7.3599e-03 & 5 & 7.0574e-09 & 27 & 5.4880e-09 \\
+\hline
+\multirow{2}*{6561} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 5.3460e-03 & 5 & 5.9872e-09 & 27 & 5.3598e-09 \\
+~ & ~ & $8 log_{2}N$ & 9.6651e-03 & 6 & 1.5906e-09 & 27 & 5.3598e-09 \\
+
+\end{tabular}
+
+\caption{Numerical results for 1D uniform amplitude FIO (1) using the approximate inverse $\hat{G}\hat{K}^{*}$ and the adjoint FIO matrix $\hat{K}^{*}$ as preconditioners for PCG with tolerance $1e-8$.}
+\label{1d-k1f}
+\end{table}
+
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{c|}{}& \multicolumn{1}{c|}{$\hat{K} \approx K$} & \multicolumn{4}{c|}{$\hat{G}\hat{K}^{*}\approx K^{-1}$}& \multicolumn{2}{c|}{$\hat{K}^{*} \approx \hat{K}^{*}$}\\
+\hline
+N & $e_{a}$ & $r$ & $e_{s}$ & $n_{i}$ & $e$ & $n_{i}$ & $e$ \\ 
+\hline
+\multirow{2}*{256} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 4.4706e-02 & 50 & 1.8611e-08 & 48 & 1.5806e-02 \\
+~ & ~ & $8 log_{2}N$ & 2.6151e+04 & 14 & 4.6737e-03 & 48 & 1.5806e-02 \\
+\hline
+\multirow{2}*{625} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 3.6370e+07 & 0 & 1.0000e+00 & 2 & 1.4901e-01 \\
+~ & ~ & $8 log_{2}N$ & 6.4132e+06 & 0 & 1.0000e+00 & 2 & 1.4901e-01 \\
+\hline
+\multirow{2}*{1296} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 7.8196e+02 & 0 & 1.0000e+00 & 2 & 1.9735e-01 \\
+~ & ~ & $8 log_{2}N$ & 5.8627e+01 & 0 & 1.0000e+00 & 2 & 1.9735e-01 \\
+\hline
+\multirow{2}*{2401} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 7.8292e+00 & 0 & 1.0000e+00 & 2 & 9.6268e-02 \\
+~ & ~ & $8 log_{2}N$ & 1.0408e+01 & 0 & 1.0000e+00 & 2 & 9.6268e-02 \\
+\hline
+\multirow{2}*{4096} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 8.2260e+00 & 0 & 1.0000e+00 & 1 & 3.0659e-01 \\
+~ & ~ & $8 log_{2}N$ & 9.7050e+00 & 0 & 1.0000e+00 & 1 & 3.0659e-01 \\
+\hline
+\multirow{2}*{6561} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 3.4527e+01 & 0 & 1.0000e+00 & 1 & 3.1116e-01 \\
+~ & ~ & $8 log_{2}N$ & 1.0948e+01 & 2 & 9.6515e-01 & 1 & 3.1116e-01 \\
+
+\end{tabular}
+
+\caption{Numerical results for 1D uniform amplitude FIO (2) using the approximate inverse $\hat{G}\hat{K}^{*}$ and the adjoint FIO matrix $\hat{K}^{*}$ as preconditioners for PCG with tolerance $1e-8$.}
+\label{1d-k2f}
+\end{table}
+
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{c|}{}& \multicolumn{1}{c|}{$\hat{K} \approx K$} & \multicolumn{4}{c|}{$\hat{G}\hat{K}^{*}\approx K^{-1}$}& \multicolumn{2}{c|}{$\hat{K}^{*} \approx \hat{K}^{*}$}\\
+\hline
+N & $e_{a}$ & $r$ & $e_{s}$ & $n_{i}$ & $e$ & $n_{i}$ & $e$ \\ 
+\hline
+\multirow{2}*{256} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 3.2323e-11 & 1 & 2.3212e-11 & 46 & 4.1806e-01 \\
+~ & ~ & $8 log_{2}N$ & 4.9004e+00 & 35 & 5.7483e-09 & 46 & 4.1806e-01 \\
+\hline
+\multirow{2}*{625} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 2.2940e+01 & 44 & 4.3912e-01 & 7 & 4.3607e-01 \\
+~ & ~ & $8 log_{2}N$ & 2.2687e+01 & 32 & 4.4483e-01 & 7 & 4.3607e-01 \\
+\hline
+\multirow{2}*{1296} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 1.3739e+01 & 50 & 4.7349e-01 & 32 & 4.6936e-01 \\
+~ & ~ & $8 log_{2}N$ & 6.9500e+00 & 34 & 4.9653e-01 & 32 & 4.6936e-01 \\
+\hline
+\multirow{2}*{2401} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 2.7433e+00 & 9 & 5.0112e-01 & 8 & 4.8654e-01 \\
+~ & ~ & $8 log_{2}N$ & 1.3079e+00 & 7 & 4.8838e-01 & 8 & 4.8654e-01 \\
+\hline
+\multirow{2}*{4096} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 4.4946e+00 & 0 & 1.0000e+00 & 0 & 1.0000e+00 \\
+~ & ~ & $8 log_{2}N$ & 6.4175e+00 & 0 & 1.0000e+00 & 0 & 1.0000e+00 \\
+\hline
+\multirow{2}*{6561} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 5.6588e+00 & 0 & 1.0000e+00 & 0 & 1.0000e+00 \\
+~ & ~ & $8 log_{2}N$ & 1.2717e+00 & 0 & 1.0000e+00 & 0 & 1.0000e+00 \\
+
+\end{tabular}
+
+\caption{Numerical results for 1D uniform amplitude FIO (3) using the approximate inverse $\hat{G}\hat{K}^{*}$ and the adjoint FIO matrix $\hat{K}^{*}$ as preconditioners for PCG with tolerance $1e-8$.}
+\label{1d-k3f}
+\end{table}
+
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{c|}{}& \multicolumn{1}{c|}{$\hat{K} \approx K$} & \multicolumn{4}{c|}{$\hat{G}\hat{K}^{*}\approx K^{-1}$}& \multicolumn{2}{c|}{$\hat{K}^{*} \approx \hat{K}^{*}$}\\
+\hline
+N & $e_{a}$ & $r$ & $e_{s}$ & $n_{i}$ & $e$ & $n_{i}$ & $e$ \\ 
+\hline
+\multirow{2}*{256} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 1.5120e+01 & 0 & 1.0000e+00 & 3 & 4.5023e-01 \\
+~ & ~ & $8 log_{2}N$ & 2.4166e+01 & 0 & 1.0000e+00 & 3 & 4.5023e-01 \\
+\hline
+\multirow{2}*{625} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 2.0845e+01 & 10 & 7.5184e-01 & 1 & 4.1921e-01 \\
+~ & ~ & $8 log_{2}N$ & 1.6137e+01 & 13 & 7.3399e-01 & 1 & 4.1921e-01 \\
+\hline
+\multirow{2}*{1296} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 2.8380e+01 & 12 & 6.3824e-01 & 1 & 3.9825e-01 \\
+~ & ~ & $8 log_{2}N$ & 1.4015e+01 & 8 & 6.0355e-01 & 1 & 3.9825e-01 \\
+\hline
+\multirow{2}*{2401} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 3.8884e+01 & 12 & 6.8831e-01 & 1 & 5.7565e-01 \\
+~ & ~ & $8 log_{2}N$ & 2.4676e+00 & 5 & 6.3549e-01 & 1 & 5.7565e-01 \\
+\hline
+\multirow{2}*{4096} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 1.9453e+01 & 3 & 5.4779e-01 & 1 & 4.3098e-01 \\
+~ & ~ & $8 log_{2}N$ & 3.7073e+00 & 2 & 5.0636e-01 & 1 & 4.3098e-01 \\
+\hline
+\multirow{2}*{6561} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 1.1592e+01 & 0 & 1.0000e+00 & 0 & 1.0000e+00 \\
+~ & ~ & $8 log_{2}N$ & 6.2269e+00 & 0 & 1.0000e+00 & 0 & 1.0000e+00 \\
+
+\end{tabular}
+
+\caption{Numerical results for 1D uniform amplitude FIO (4) using the approximate inverse $\hat{G}\hat{K}^{*}$ and the adjoint FIO matrix $\hat{K}^{*}$ as preconditioners for PCG with tolerance $1e-8$.}
+\label{1d-k4f}
+\end{table}
+
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{c|}{}& \multicolumn{1}{c|}{$\hat{K} \approx K$} & \multicolumn{4}{c|}{$\hat{G}\hat{K}^{*}\approx K^{-1}$}& \multicolumn{2}{c|}{$\hat{K}^{*} \approx \hat{K}^{*}$}\\
+\hline
+N & $e_{a}$ & $r$ & $e_{s}$ & $n_{i}$ & $e$ & $n_{i}$ & $e$ \\ 
+\hline
+\multirow{2}*{256} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 1.9513e-08 & 1 & 8.2233e-16 & 5 & 2.4401e-09 \\
+~ & ~ & $8 log_{2}N$ & 1.9337e-08 & 1 & 1.8995e-09 & 5 & 2.4401e-09 \\
+\hline
+\multirow{2}*{625} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 5.8074e-07 & 2 & 2.3352e-12 & 5 & 2.3783e-09 \\
+~ & ~ & $8 log_{2}N$ & 5.2226e-07 & 2 & 1.9176e-12 & 5 & 2.3783e-09 \\
+\hline
+\multirow{2}*{1296} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 8.7199e-07 & 2 & 3.6109e-12 & 5 & 2.1702e-09 \\
+~ & ~ & $8 log_{2}N$ & 7.4380e-07 & 2 & 4.9661e-12 & 5 & 2.1702e-09 \\
+\hline
+\multirow{2}*{2401} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 6.1061e-07 & 2 & 2.8134e-12 & 5 & 2.2438e-09 \\
+~ & ~ & $8 log_{2}N$ & 5.4379e-07 & 2 & 1.8375e-12 & 5 & 2.2438e-09 \\
+\hline
+\multirow{2}*{4096} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 6.2313e-07 & 2 & 4.3019e-12 & 5 & 2.2087e-09 \\
+~ & ~ & $8 log_{2}N$ & 2.1256e-06 & 2 & 4.5048e-11 & 5 & 2.2087e-09 \\
+\hline
+\multirow{2}*{6561} & \multirow{2}*{1e-7} & $15 log_{2}N$ & 1.0210e-06 & 2 & 1.7526e-11 & 5 & 2.1898e-09 \\
+~ & ~ & $8 log_{2}N$ & 1.6611e-06 & 2 & 6.7902e-11 & 5 & 2.1898e-09 \\
+
+\end{tabular}
+
+\caption{Numerical results for 1D uniform amplitude FIO (5) using the approximate inverse $\hat{G}\hat{K}^{*}$ and the adjoint FIO matrix $\hat{K}^{*}$ as preconditioners for PCG with tolerance $1e-8$.}
+\label{1d-k5f}
+\end{table}
+
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{c|}{}& \multicolumn{1}{c|}{$\hat{K} \approx K$} & \multicolumn{4}{c|}{$\hat{G}\hat{K}^{*}\approx K^{-1}$}& \multicolumn{2}{c|}{$\hat{K}^{*} \approx \hat{K}^{*}$}\\
+\hline
+N & $e_{a}$ & $\epsilon$ & $e_{s}$ & $n_{i}$ & $e$ & $n_{i}$ & $e$ \\ 
+\hline
+$16^2$ & 1e-7 & 1e-3 & 5.0303e-05 & 2 & 8.1092e-09 & 10 & 9.3295e-09 \\
+\hline
+$25^2$ & 1e-7 & 1e-3 & 6.4488e-05 & 3 & 1.5497e-12 & 11 & 4.7878e-09 \\
+\hline
+$36^2$ & 1e-7 & 1e-3 & 6.9689e-05 & 3 & 1.8378e-12 & 11 & 8.1950e-09 \\
+\hline
+$49^2$ & 1e-7 & 1e-3 & 5.2556e-04 & 3 & 2.4241e-10 & 12 & 2.0339e-09 \\
+\hline
+$64^2$ & 1e-7 & 1e-3 & 6.7135e-05 & 3 & 2.2070e-11 & 12 & 2.2750e-09 \\
+\hline
+$81^2$ & 1e-7 & 1e-3 & 6.0597e-05 & 3 & 3.4154e-12 & 12 & 2.4716e-09 \\
+
+\end{tabular}
+
+\caption{Numerical results for 2D uniform amplitude FIO (6) using the approximate inverse $\hat{G}\hat{K}^{*}$ and the adjoint FIO matrix $\hat{K}^{*}$ as preconditioners for PCG with tolerance $1e-8$.}
+\label{2d-k1}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{c|}{}& \multicolumn{1}{c|}{$\hat{K} \approx K$} & \multicolumn{4}{c|}{$\hat{G}\hat{K}^{*}\approx K^{-1}$}& \multicolumn{2}{c|}{$\hat{K}^{*} \approx \hat{K}^{*}$}\\
+\hline
+N & $e_{a}$ & $\epsilon$ & $e_{s}$ & $n_{i}$ & $e$ & $n_{i}$ & $e$ \\ 
+\hline
+$16^2$ & 1e-7 & 1e-3 & 5.8652e-05 & 3 & 1.4229e-12 & 17 & 3.2067e-09 \\
+\hline
+$25^2$ & 1e-7 & 1e-3 & 1.1249e-04 & 3 & 8.1081e-12 & 17 & 9.8648e-09 \\
+\hline
+$36^2$ & 1e-7 & 1e-3 & 1.5834e-04 & 3 & 3.2388e-11 & 19 & 3.6075e-09 \\
+\hline
+$49^2$ & 1e-7 & 1e-3 & 5.2357e-04 & 3 & 6.1662e-10 & 19 & 6.9227e-09 \\
+\hline
+$64^2$ & 1e-7 & 1e-3 & 1.6066e-04 & 3 & 5.6871e-11 & 20 & 4.7774e-09 \\
+\hline
+$81^2$ & 1e-7 & 1e-3 & 1.5370e-04 & 3 & 6.5701e-11 & 20 & 7.3115e-09 \\
+
+\end{tabular}
+
+\caption{Numerical results for 2D uniform amplitude FIO (7) using the approximate inverse $\hat{G}\hat{K}^{*}$ and the adjoint FIO matrix $\hat{K}^{*}$ as preconditioners for PCG with tolerance $1e-8$.}
+\label{2d-k2}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{c|}{}& \multicolumn{1}{c|}{$\hat{K} \approx K$} & \multicolumn{4}{c|}{$\hat{G}\hat{K}^{*}\approx K^{-1}$}& \multicolumn{2}{c|}{$\hat{K}^{*} \approx \hat{K}^{*}$}\\
+\hline
+N & $e_{a}$ & $\epsilon$ & $e_{s}$ & $n_{i}$ & $e$ & $n_{i}$ & $e$ \\ 
+\hline
+$16^2$ & 1e-7 & 1e-3 & 1.8957e-12 & 1 & 1.2056e-15 & 29 & 4.9053e-09 \\
+\hline
+$25^2$ & 1e-7 & 1e-3 & 2.8679e-04 & 3 & 2.8057e-10 & 35 & 7.9026e-09 \\
+\hline
+$36^2$ & 1e-7 & 1e-3 & 4.4268e-04 & 3 & 1.8384e-09 & 40 & 8.3131e-09 \\
+\hline
+$49^2$ & 1e-7 & 1e-3 & 6.1393e-03 & 4 & 3.5965e-11 & 47 & 6.0100e-09 \\
+\hline
+$64^2$ & 1e-7 & 1e-3 & 7.5916e-04 & 3 & 3.6429e-09 & 50 & 1.3345e-08 \\
+\hline
+$81^2$ & 1e-7 & 1e-3 & 9.4295e-04 & 3 & 8.6226e-09 & 50 & 8.9494e-08 \\
+
+\end{tabular}
+
+\caption{Numerical results for 2D uniform amplitude FIO (8) using the approximate inverse $\hat{G}\hat{K}^{*}$ and the adjoint FIO matrix $\hat{K}^{*}$ as preconditioners for PCG with tolerance $1e-8$.}
+\label{2d-k3}
+\end{table}
+
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{c|}{}& \multicolumn{1}{c|}{$\hat{K} \approx K$} & \multicolumn{4}{c|}{$\hat{G}\hat{K}^{*}\approx K^{-1}$}& \multicolumn{2}{c|}{$\hat{K}^{*} \approx \hat{K}^{*}$}\\
+\hline
+N & $e_{a}$ & $\epsilon$ & $e_{s}$ & $n_{i}$ & $e$ & $n_{i}$ & $e$ \\ 
+\hline
+$16^2$ & 1e-7 & 1e-3 & 1.9113e-11 & 1 & 3.4568e-13 & 50 & 3.8826e-01 \\
+\hline
+$25^2$ & 1e-7 & 1e-3 & 2.3893e-10 & 1 & 6.1817e-11 & 5 & 7.8271e-01 \\
+\hline
+$36^2$ & 1e-7 & 1e-3 & 2.5031e+02 & 35 & 5.6451e-08 & 7 & 9.2996e-01 \\
+\hline
+$49^2$ & 1e-7 & 1e-3 & 2.1935e+03 & 0 & 1.0000e+00 & 5 & 9.5320e-01 \\
+\hline
+$64^2$ & 1e-7 & 1e-3 & 5.2873e+03 & 0 & 1.0000e+00 & 5 & 9.5751e-01 \\
+\hline
+$81^2$ & 1e-7 & 1e-3 & 4.3305e+03 & 0 & 1.0000e+00 & 0 & 1.0000e+00 \\
+
+\end{tabular}
+
+\caption{Numerical results for 2D uniform amplitude FIO (9) using the approximate inverse $\hat{G}\hat{K}^{*}$ and the adjoint FIO matrix $\hat{K}^{*}$ as preconditioners for PCG with tolerance $1e-8$.}
+\label{2d-k4}
+\end{table}
+
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{c|}{}& \multicolumn{1}{c|}{$\hat{K} \approx K$} & \multicolumn{4}{c|}{$\hat{G}\hat{K}^{*}\approx K^{-1}$}& \multicolumn{2}{c|}{$\hat{K}^{*} \approx \hat{K}^{*}$}\\
+\hline
+N & $e_{a}$ & $r$ & $e_{s}$ & $n_{i}$ & $e$ & $n_{i}$ & $e$ \\ 
+\hline
+$16^2$ & 1e-7 & $8 log_{2}N$ & 3.0037e-05 & 2 & 4.6138e-09 & 10 & 9.3295e-09 \\
+\hline
+$25^2$ & 1e-7 & $8 log_{2}N$ & 3.9225e-04 & 3 & 2.2359e-09 & 11 & 4.7878e-09 \\
+\hline
+$36^2$ & 1e-7 & $8 log_{2}N$ & 1.5552e-03 & 4 & 2.8455e-10 & 11 & 8.1950e-09 \\
+\hline
+$49^2$ & 1e-7 & $8 log_{2}N$ & 3.6387e-03 & 5 & 1.1175e-09 & 12 & 2.0339e-09 \\
+\hline
+$64^2$ & 1e-7 & $8 log_{2}N$ & 6.1327e-03 & 5 & 6.9027e-09 & 12 & 2.2750e-09 \\
+\hline
+$81^2$ & 1e-7 & $8 log_{2}N$ & 9.3773e-03 & 6 & 3.4127e-09 & 12 & 2.4716e-09 \\
+
+\end{tabular}
+
+\caption{Numerical results for 2D uniform amplitude FIO (6) using the approximate inverse $\hat{G}\hat{K}^{*}$ and the adjoint FIO matrix $\hat{K}^{*}$ as preconditioners for PCG with tolerance $1e-8$.}
+\label{2d-k1f}
+\end{table}
+
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{c|}{}& \multicolumn{1}{c|}{$\hat{K} \approx K$} & \multicolumn{4}{c|}{$\hat{G}\hat{K}^{*}\approx K^{-1}$}& \multicolumn{2}{c|}{$\hat{K}^{*} \approx \hat{K}^{*}$}\\
+\hline
+N & $e_{a}$ & $r$ & $e_{s}$ & $n_{i}$ & $e$ & $n_{i}$ & $e$ \\ 
+\hline
+$16^2$ & 1e-7 & $8 log_{2}N$ & 2.5844e-04 & 3 & 5.9544e-10 & 17 & 3.2067e-09 \\
+\hline
+$25^2$ & 1e-7 & $8 log_{2}N$ & 2.8387e-03 & 4 & 1.7453e-09 & 17 & 9.8648e-09 \\
+\hline
+$36^2$ & 1e-7 & $8 log_{2}N$ & 6.7332e-03 & 5 & 1.8601e-09 & 19 & 3.6075e-09 \\
+\hline
+$49^2$ & 1e-7 & $8 log_{2}N$ & 9.6055e-03 & 6 & 5.8901e-09 & 19 & 6.9227e-09 \\
+\hline
+$64^2$ & 1e-7 & $8 log_{2}N$ & 1.5655e-02 & 7 & 7.8324e-10 & 20 & 4.7774e-09 \\
+\hline
+$81^2$ & 1e-7 & $8 log_{2}N$ & 2.0175e-02 & 8 & 1.3675e-09 & 20 & 7.3115e-09 \\
+
+\end{tabular}
+
+\caption{Numerical results for 2D uniform amplitude FIO (7) using the approximate inverse $\hat{G}\hat{K}^{*}$ and the adjoint FIO matrix $\hat{K}^{*}$ as preconditioners for PCG with tolerance $1e-8$.}
+\label{2d-k2f}
+\end{table}
+
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{c|}{}& \multicolumn{1}{c|}{$\hat{K} \approx K$} & \multicolumn{4}{c|}{$\hat{G}\hat{K}^{*}\approx K^{-1}$}& \multicolumn{2}{c|}{$\hat{K}^{*} \approx \hat{K}^{*}$}\\
+\hline
+N & $e_{a}$ & $r$ & $e_{s}$ & $n_{i}$ & $e$ & $n_{i}$ & $e$ \\ 
+\hline
+$16^2$ & 1e-7 & $8 log_{2}N$ & 1.0579e-02 & 5 & 1.7571e-09 & 29 & 4.9053e-09 \\
+\hline
+$25^2$ & 1e-7 & $8 log_{2}N$ & 3.1286e-02 & 7 & 5.1513e-10 & 35 & 7.9026e-09 \\
+\hline
+$36^2$ & 1e-7 & $8 log_{2}N$ & 5.8317e-02 & 9 & 7.9130e-09 & 40 & 8.3131e-09 \\
+\hline
+$49^2$ & 1e-7 & $8 log_{2}N$ & 6.6517e-02 & 10 & 2.9707e-09 & 47 & 6.0100e-09 \\
+\hline
+$64^2$ & 1e-7 & $8 log_{2}N$ & 7.2656e-02 & 11 & 4.3443e-09 & 50 & 1.3345e-08 \\
+\hline
+$81^2$ & 1e-7 & $8 log_{2}N$ & 8.1396e-02 & 13 & 3.6063e-09 & 50 & 8.9494e-08 \\
+
+\end{tabular}
+
+\caption{Numerical results for 2D uniform amplitude FIO (8) using the approximate inverse $\hat{G}\hat{K}^{*}$ and the adjoint FIO matrix $\hat{K}^{*}$ as preconditioners for PCG with tolerance $1e-8$.}
+\label{2d-k3f}
+\end{table}
+
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{c|}{}& \multicolumn{1}{c|}{$\hat{K} \approx K$} & \multicolumn{4}{c|}{$\hat{G}\hat{K}^{*}\approx K^{-1}$}& \multicolumn{2}{c|}{$\hat{K}^{*} \approx \hat{K}^{*}$}\\
+\hline
+N & $e_{a}$ & $r$ & $e_{s}$ & $n_{i}$ & $e$ & $n_{i}$ & $e$ \\ 
+\hline
+$16^2$ & 1e-7 & $8 log_{2}N$ & 5.4117e+01 & 27 & 3.1304e-09 & 50 & 3.8826e-01 \\
+\hline
+$25^2$ & 1e-7 & $8 log_{2}N$ & 5.8317e+00 & 0 & 1.0000e+00 & 5 & 7.8271e-01 \\
+\hline
+$36^2$ & 1e-7 & $8 log_{2}N$ & 3.2884e+02 & 0 & 1.0000e+00 & 7 & 9.2996e-01 \\
+\hline
+$49^2$ & 1e-7 & $8 log_{2}N$ & 1.8200e+01 & 0 & 1.0000e+00 & 5 & 9.5320e-01 \\
+\hline
+$64^2$ & 1e-7 & $8 log_{2}N$ & 1.2028e+02 & 0 & 1.0000e+00 & 5 & 9.5751e-01 \\
+\hline
+$81^2$ & 1e-7 & $8 log_{2}N$ & 8.5404e+01 & 30 & 9.3999e-01 & 0 & 1.0000e+00 \\
+\end{tabular}
+
+\caption{Numerical results for 2D uniform amplitude FIO (9) using the approximate inverse $\hat{G}\hat{K}^{*}$ and the adjoint FIO matrix $\hat{K}^{*}$ as preconditioners for PCG with tolerance $1e-8$.}
+\label{2d-k4f}
+\end{table}
+
+\bibliographystyle{unsrt} 
+\bibliography{ref}
+
+\end{document}
+
