@@ -1,0 +1,135 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2020 The MathWorks, Inc.
+              R2020a Update 2 (9.8.0.1380330) 64-bit (glnxa64)
+                                May 5, 2020
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+
+tol =
+
+   1.0000e-14
+
+
+kernel = 
+
+    "1"
+
+
+rank_or_tol =
+
+   1.0000e-06
+
+
+tol_sol =
+
+   1.0000e-08
+
+
+maxit =
+
+    50
+
+
+np =
+
+     8
+
+
+dims =
+
+    16    25    36    49    64    81
+
+N =  256 
+condition number estimation of A  : 3.0780e+00 
+condition number estimation of ATA: 9.4739e+00 
+condition number estimation of A1  : 3.0780e+00 
+condition number estimation of ATA1: 9.4739e+00 
+err between matrices: 2.8444e-15 
+
+err_app =
+
+   7.1399e-16
+
+hqr_mv err: 7.1399e-16 
+hqr_sv err/time: 1.6473e-15/1.3894e-03 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    1 iterations, rel error: 1.3707e-15 
+Solve the equation by PCG without preconditioners    in   25 iterations, rel error: 9.6523e-09 
+N =  625 
+condition number estimation of A  : 3.1002e+00 
+condition number estimation of ATA: 9.6114e+00 
+condition number estimation of A1  : 3.1002e+00 
+condition number estimation of ATA1: 9.6114e+00 
+err between matrices: 2.8338e-15 
+
+err_app =
+
+   8.7691e-16
+
+hqr_mv err: 8.7691e-16 
+hqr_sv err/time: 2.6003e-15/1.0151e-02 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    1 iterations, rel error: 2.0396e-15 
+Solve the equation by PCG without preconditioners    in   26 iterations, rel error: 8.7336e-09 
+N = 1296 
+condition number estimation of A  : 3.1044e+00 
+condition number estimation of ATA: 9.6375e+00 
+condition number estimation of A1  : 3.1044e+00 
+condition number estimation of ATA1: 9.6375e+00 
+err between matrices: 4.0200e-10 
+
+err_app =
+
+   1.0147e-15
+
+hqr_mv err: 1.0147e-15 
+hqr_sv err/time: 3.3834e-15/5.9546e-02 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    1 iterations, rel error: 2.8224e-15 
+Solve the equation by PCG without preconditioners    in   27 iterations, rel error: 5.3791e-09 
+N = 2401 
+condition number estimation of A  : 3.1054e+00 
+condition number estimation of ATA: 9.6434e+00 
+condition number estimation of A1  : 3.1054e+00 
+condition number estimation of ATA1: 9.6434e+00 
+err between matrices: 1.2075e-13 
+
+err_app =
+
+   1.1766e-15
+
+hqr_mv err: 1.1766e-15 
+hqr_sv err/time: 4.4715e-15/1.8048e+00 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    1 iterations, rel error: 3.8760e-15 
+Solve the equation by PCG without preconditioners    in   27 iterations, rel error: 5.4065e-09 
+N = 4096 
+condition number estimation of A  : 3.1057e+00 
+condition number estimation of ATA: 9.6451e+00 
+condition number estimation of A1  : 3.1057e+00 
+condition number estimation of ATA1: 9.6451e+00 
+err between matrices: 5.1838e-11 
+
+err_app =
+
+   1.5271e-15
+
+hqr_mv err: 1.5271e-15 
+hqr_sv err/time: 6.6109e-15/9.8915e+00 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    1 iterations, rel error: 5.0378e-15 
+Solve the equation by PCG without preconditioners    in   27 iterations, rel error: 5.4044e-09 
+N = 6561 
+condition number estimation of A  : 3.1057e+00 
+condition number estimation of ATA: 9.6456e+00 
+condition number estimation of A1  : 3.1057e+00 
+condition number estimation of ATA1: 9.6456e+00 
+err between matrices: 6.1737e-09 
+
+err_app =
+
+   1.7484e-15
+
+hqr_mv err: 1.7484e-15 
+hqr_sv err/time: 1.1089e-14/1.5371e+01 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    1 iterations, rel error: 6.3564e-15 
+Solve the equation by PCG without preconditioners    in   27 iterations, rel error: 5.3729e-09 

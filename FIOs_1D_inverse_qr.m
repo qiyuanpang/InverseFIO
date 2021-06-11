@@ -4,7 +4,7 @@ clear all;
 startup;
 
 tol = 1e-14
-kernel = "6"
+kernel = "7"
 fun_name = "fun" + kernel;
 func_name = fun_name;
 occ = 64;
@@ -18,7 +18,7 @@ rand_or_cheb = 'cheb';
 np = 8
 
 %dims = [16 25 36]
-dims = [16, 25, 36, 49, 84, 91]
+dims = [16, 25, 36, 49, 64, 81]
 cases = length(dims);
 apptime = zeros(cases, 1);
 soltime = zeros(cases, 1);
