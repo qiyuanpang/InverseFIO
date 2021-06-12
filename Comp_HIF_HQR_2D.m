@@ -16,8 +16,8 @@ n0 = 8;
 tt = 5;
 rand_or_cheb = 'rand';
 
-dims = [16 25 36]
-%dims = [16 25 36 49 64 81]
+%dims = [16 25 36]
+dims = [16 25 36 49 64 81]
 cases = length(dims);
 apptime = zeros(cases, 1);
 bferr = zeros(cases, 1);
