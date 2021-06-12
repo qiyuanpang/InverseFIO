@@ -4,32 +4,39 @@ clear all;
 startup;
 
 tol = 1e-14
-kernel = "4"
+kernel = "7"
 fun_name = "fun" + kernel;
-func_name = fun_name+"_tol_6";
-occ = 64;
-rank_or_tol = 1e-6
+func_name = fun_name;
+occ = 32;
+rank_or_tol = 1e-3
 tol_sol = 1e-8
 maxit = 50
 repeat_num = 5;
 n0 = 8;
 tt = 5;
-rand_or_cheb = 'cheb';
-np = 8
+rand_or_cheb = 'rand';
 
-%dims = [16 25 36]
-dims = [16 25 36 49 64 81]
+dims = [16 25 36]
+%dims = [16 25 36 49 64 81]
 cases = length(dims);
 apptime = zeros(cases, 1);
-soltime = zeros(cases, 1);
-apperr = zeros(cases, 1);
-solerr = zeros(cases, 1);
+bferr = zeros(cases, 1);
 condAs = zeros(cases, 1);
 condATAs = zeros(cases, 1);
-bferr = zeros(cases, 1);
-ranks = zeros(cases, 1);
-solerrpcg = zeros(cases, 1);
-iters = zeros(cases, 1);
+
+soltime_hif = zeros(cases, 1);
+soltime_hqr = zeros(cases, 1);
+apperr_hif = zeros(cases, 1);
+apperr_hqr = zeros(cases, 1);
+solerr_hif = zeros(cases, 1);
+solerr_hqr = zeros(cases, 1);
+
+ranks_hif = zeros(cases, 1);
+ranks_hqr = zeros(cases, 1);
+solerrpcg_hif = zeros(cases, 1);
+solerrpcg_hqr = zeros(cases, 1);
+iters_hif = zeros(cases, 1);
+iters_hqr = zeros(cases, 1);
 for i = 1:cases
     n = dims(i);
     N = n^2;
@@ -41,6 +48,7 @@ for i = 1:cases
 
     x = (0:N-1)/N;
     xx = x(:);
+    
 
     fprintf('N = %4d \n', N)
 
@@ -103,16 +111,28 @@ for i = 1:cases
     [x1,x2] = ndgrid((1:n)/n); 
     x = [x1(:) x2(:)]'; 
 
-    [F, rank] = hifie2my(Afun,x,occ,rank_or_tol);
+    [F, rk] = hifie2my(Afun,x,occ,rank_or_tol);
 
-    fprintf('rank of hif: %6d \n', rank)
-    ranks(i) = rank;
+    fprintf('rank of hif: %6d \n', rk)
+    ranks_hif(i) = rk;
+
+    [Y, T, R, rk] = hqr(ATA, [], [], [], floor(log2(N)/2)+1, rank_or_tol);
+
+    fprintf('rank of hqr: %6d \n', rk)
+    ranks_hqr(i) = rk;
 
     err = snorm(N,@(x)(ATA*x - hifie_mv(F,x)),[],[],1,128);
     err = err/snorm(N,@(x)(ATA*x),[],[],1, 128);
     fprintf('hifie_mv err: %10.4e \n',err)
-    apperr(i) = err;
-
+    apperr_hif(i) = err;
+    
+    Q = eye(N)-Y*T*Y';
+    R = [R;zeros(N-size(R,1), size(R,2))];
+    x = rand(N,1);
+    err_app = norm(Q*R*x-ATA*x)/norm(ATA*x);
+    fprintf('hqr_mv   err: %10.4e \n', err_app)
+    apperr_hqr(i) = err_app;
+    
     sol = 2*rand(N,1);
     b = BF_adj_apply(Factor, A1*sol);
     %b = ATA1*sol;
@@ -123,19 +143,32 @@ for i = 1:cases
     sol_time = toc/repeat_num;
     err_sol = norm(sol-app)/norm(sol);
     fprintf('hifie_sv err/time: %10.4e/%10.4e (s) \n', err_sol, sol_time)
-    solerr(i) = err_sol;
-    soltime(i) = sol_time;
+    solerr_hif(i) = err_sol;
+    soltime_hif(i) = sol_time;
+    
+    tic;
+    for j = 1:repeat_num
+        app = R\(b - Y*T'*Y'*b);
+    end
+    sol_time = toc/repeat_num;
+    err_sol = norm(sol-app)/norm(sol);
+    fprintf('hqr_sv   err/time: %10.4e/%10.4e (s) \n', err_sol, sol_time)
+    solerr_hqr(i) = err_sol;
+    soltime_hqr(i) = sol_time;
     
     b = rand(N, 1);
     pcd = @(x)hifie_sv(F, x);
     [x, flag, relres, iter] = pcg(ATA, b, tol_sol, maxit, pcd);
-    solerrpcg(i) = relres;
-    iters(i) = iter;
-    fprintf('Solve the equation by PCG with F as a preconditioner in %4d iterations, rel error: %10.4e \n', iter, relres)
+    solerrpcg_hif(i) = relres;
+    iters_hif(i) = iter;
+    fprintf('Solve the equation by PCG with HIF as a preconditioner in %4d iterations, rel error: %10.4e \n', iter, relres)
     
-    %pcd = @(x)hifie_sv(F, x);
-    [x, flag, relres, iter] = pcg(ATA, b, tol_sol, maxit);
-    fprintf('Solve the equation by PCG without preconditioners    in %4d iterations, rel error: %10.4e \n', iter, relres)
+    pcd = @(b)R\(b - Y*T'*Y'*b);
+    [x, flag, relres, iter] = pcg(ATA, b, tol_sol, maxit, pcd);
+    solerrpcg_hqr(i) = relres;
+    iters_hqr(i) = iter;
+    fprintf('Solve the equation by PCG with HQR as a preconditioner in %4d iterations, rel error: %10.4e \n', iter, relres)
+    
 end
 
 N = dims.^2;
@@ -152,41 +185,45 @@ h(3) = plot(logN, N2logN-N2logN(1)+log2(apptime(1)));
 xlabel('Log(N)');
 ylabel('Log(Time)/s'); 
 title('BF time scaling');
-legend(h, 'BF', 'N log N', 'N log^2 N');
+legend(h, 'App time', 'N log N', 'N log^2 N');
 axis square;
-saveas(fig, "./results/hif/1D/kernel" + kernel + "/apptime_" + func_name + ".png");
+saveas(fig, "./comp/1D/kernel" + kernel + "/apptime_" + func_name + ".png");
+hold off;
 
 fig = figure(2);
 hold on;
-h(1) = plot(logN, log2(soltime));
-h(2) = plot(logN, NlogN-NlogN(1)+log2(soltime(1)));
-h(3) = plot(logN, N2logN-N2logN(1)+log2(soltime(1)));
+h(1) = plot(logN, log2(soltime_hif));
+h(2) = plot(logN, log2(soltime_hqr));
+h(3) = plot(logN, NlogN-NlogN(1)+(log2(soltime_hif(1))+log2(soltime_hqr(1)))/2);
+h(4) = plot(logN, N2logN-N2logN(1)+(log2(soltime_hif(1))+log2(soltime_hqr(1)))/2);
 xlabel('Log(N)');
 ylabel('Log(Time)/s'); 
 title('Equation Solving time scaling');
+legend(h, 'HIF', 'HQR', 'N log N', 'N log^2 N');
+saveas(fig, "./comp/1D/kernel" + kernel + "/soltime_" + func_name + ".png");
 hold off;
-legend(h, 'Sol time', 'N log N', 'N log^2 N');
-saveas(fig, "./results/hif/1D/kernel" + kernel + "/soltime_" + func_name + ".png");
 
 fig = figure(3);
 hold on;
-h(1) = plot(logN, log10(apperr));
+h(1) = plot(logN, log10(apperr_hif));
+h(2) = plot(logN, log10(apperr_hqr));
 xlabel('Log(N)')
 ylabel('Log10(error)'); 
-title('Forward Error');
+title('Forward error');
+legend(h, 'HIF', 'HQR');
+saveas(fig, "./comp/1D/kernel" + kernel + "/apperr_" + func_name + ".png");
 hold off;
-% legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "./results/hif/1D/kernel" + kernel + "/apperr_" + func_name + ".png");
 
 fig = figure(4);
 hold on;
-h(1) = plot(logN, log10(solerr));
+h(1) = plot(logN, log10(solerr_hif));
+h(2) = plot(logN, log10(solerr_hqr));
 xlabel('Log(N)');
 ylabel('Log10(error)'); 
-title('Backward Error');
+title('Backward error');
+legend(h, 'HIF', 'HQR');
+saveas(fig, "./comp/1D/kernel" + kernel + "/solerr_"+ func_name + ".png");
 hold off;
-% legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "./results/hif/1D/kernel" + kernel + "/solerr_"+ func_name + ".png");
 
 fig = figure(5);
 hold on;
@@ -195,51 +232,53 @@ h(2) = plot(logN, log10(condATAs));
 xlabel('Log(N)');
 ylabel('Log10(cond num)'); 
 title('Condition numbers');
-hold off;
 legend(h, 'A', 'ATA');
-saveas(fig, "./results/hif/1D/kernel" + kernel + "/conda_"+ func_name + ".png");
+saveas(fig, "./comp/1D/kernel" + kernel + "/conda_"+ func_name + ".png");
+hold off;
 
 fig = figure(6);
 hold on;
 h(1) = plot(logN, log10(bferr));
 xlabel('Log(N)');
 ylabel('Log10(error)'); 
-title('BF Error');
-hold off;
+title('Error of BF');
 % legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "./results/hif/1D/kernel" + kernel + "/bferr_"+ func_name + ".png");
-
+saveas(fig, "./comp/1D/kernel" + kernel + "/bferr_"+ func_name + ".png");
+hold off;
 
 fig = figure(7);
 hold on;
-h(1) = plot(logN, log2(ranks));
-h(2) = plot(logN, 0.5*logN-0.5*logN(1)+log2(ranks(1)));
-h(3) = plot(logN, log2(logN)-log2(logN(1))+log2(ranks(1)));
+h(1) = plot(logN, log2(ranks_hif));
+h(2) = plot(logN, log2(ranks_hqr));
+h(3) = plot(logN, 0.5*logN-0.5*logN(1)+(log2(ranks_hif(1))+log2(ranks_hqr(1)))/2);
+h(4) = plot(logN, log2(logN)-log2(logN(1))+(log2(ranks_hif(1))+log2(ranks_hqr(1)))/2);
 xlabel('Log(N)');
 ylabel('Log2(rank)'); 
 title('Rank');
+legend(h, 'HIF', 'HQR', 'sqrt(N)', 'log N');
+saveas(fig, "./comp/1D/kernel" + kernel + "/rank_"+ func_name + ".png");
 hold off;
-legend(h, 'rank', 'sqrt(N)', 'log N');
-saveas(fig, "./results/hif/1D/kernel" + kernel + "/rank_"+ func_name + ".png");
 
 fig = figure(8);
 hold on;
-h(1) = plot(logN, log10(solerrpcg));
+h(1) = plot(logN, log10(solerrpcg_hif));
+h(2) = plot(logN, log10(solerrpcg_hqr));
 xlabel('Log(N)');
 ylabel('Log10(error)'); 
-title('Error of PCG');
+title('Error of PCG Solution');
+legend(h, 'HIF', 'HQR');
+saveas(fig, "./comp/1D/kernel" + kernel + "/pcgerr_"+ func_name + ".png");
 hold off;
-% legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "./results/hif/1D/kernel" + kernel + "/pcgerr_"+ func_name + ".png");
 
 fig = figure(9);
 hold on;
-h(1) = plot(logN, iters);
+h(1) = plot(logN, iters_hif);
+h(2) = plot(logN, iters_hqr);
 xlabel('Log(N)');
 ylabel('Iteration'); 
 title('Iterations in PCG');
+legend(h, 'HIF', 'HQR');
+saveas(fig, "./comp/1D/kernel" + kernel + "/iters_" + func_name + ".png");
 hold off;
-% legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "./results/hif/1D/kernel" + kernel + "/iters_" + func_name + ".png");
 
 exit;

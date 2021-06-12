@@ -142,10 +142,10 @@ h(2) = plot(logN, NlogN-NlogN(1)+log2(apptime(1)));
 h(3) = plot(logN, N2logN-N2logN(1)+log2(apptime(1)));
 xlabel('Log(N)');
 ylabel('Log(Time)/s'); 
-title('Time scaling of Application');
-legend(h, 'App time', 'N log N', 'N log^2 N');
+title('BF time scaling');
+legend(h, 'BF', 'N log N', 'N log^2 N');
 axis square;
-saveas(fig, "./results/hqr/2D/kernel" + kernel + "/apptime_" + func_name + ".png");
+saveas(fig, "./results/hif/2D/kernel" + kernel + "/apptime_" + func_name + ".png");
 
 fig = figure(2);
 hold on;
@@ -154,63 +154,54 @@ h(2) = plot(logN, NlogN-NlogN(1)+log2(soltime(1)));
 h(3) = plot(logN, N2logN-N2logN(1)+log2(soltime(1)));
 xlabel('Log(N)');
 ylabel('Log(Time)/s'); 
-title('Time scaling of Solving equations');
+title('Equation Solving time scaling');
 hold off;
 legend(h, 'Sol time', 'N log N', 'N log^2 N');
-saveas(fig, "./results/hqr/2D/kernel" + kernel + "/soltime_" + func_name + ".png");
+saveas(fig, "./results/hif/2D/kernel" + kernel + "/soltime_" + func_name + ".png");
 
 fig = figure(3);
 hold on;
 h(1) = plot(logN, log10(apperr));
 xlabel('Log(N)')
 ylabel('Log10(error)'); 
-title('Error of Application');
+title('Forward Error');
 hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "./results/hqr/2D/kernel" + kernel + "/apperr_" + func_name + ".png");
+saveas(fig, "./results/hif/2D/kernel" + kernel + "/apperr_" + func_name + ".png");
 
 fig = figure(4);
 hold on;
 h(1) = plot(logN, log10(solerr));
 xlabel('Log(N)');
 ylabel('Log10(error)'); 
-title('Error of Solution');
+title('Backward Error');
 hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "./results/hqr/2D/kernel" + kernel + "/solerr_"+ func_name + ".png");
+saveas(fig, "./results/hif/2D/kernel" + kernel + "/solerr_"+ func_name + ".png");
 
 fig = figure(5);
 hold on;
 h(1) = plot(logN, log10(condAs));
+h(2) = plot(logN, log10(condATAs));
 xlabel('Log(N)');
 ylabel('Log10(cond num)'); 
 title('Condition numbers');
 hold off;
-% legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "./results/hqr/2D/kernel" + kernel + "/conda_"+ func_name + ".png");
+legend(h, 'A', 'ATA');
+saveas(fig, "./results/hif/2D/kernel" + kernel + "/conda_"+ func_name + ".png");
 
 fig = figure(6);
-hold on;
-h(1) = plot(logN, log10(condATAs));
-xlabel('Log(N)');
-ylabel('Log10(cond num)'); 
-title('Condition numbers');
-hold off;
-% legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "./results/hqr/2D/kernel" + kernel + "/condata_" + func_name + ".png");
-
-fig = figure(7);
 hold on;
 h(1) = plot(logN, log10(bferr));
 xlabel('Log(N)');
 ylabel('Log10(error)'); 
-title('Error of BF');
+title('BF Error');
 hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "./results/hqr/2D/kernel" + kernel + "/bferr_"+ func_name + ".png");
+saveas(fig, "./results/hif/2D/kernel" + kernel + "/bferr_"+ func_name + ".png");
 
 
-fig = figure(8);
+fig = figure(7);
 hold on;
 h(1) = plot(logN, log2(ranks));
 h(2) = plot(logN, 0.5*logN-0.5*logN(1)+log2(ranks(1)));
@@ -220,19 +211,19 @@ ylabel('Log2(rank)');
 title('Rank');
 hold off;
 legend(h, 'rank', 'sqrt(N)', 'log N');
-saveas(fig, "./results/hqr/2D/kernel" + kernel + "/rank_"+ func_name + ".png");
+saveas(fig, "./results/hif/2D/kernel" + kernel + "/rank_"+ func_name + ".png");
 
-fig = figure(9);
+fig = figure(8);
 hold on;
 h(1) = plot(logN, log10(solerrpcg));
 xlabel('Log(N)');
 ylabel('Log10(error)'); 
-title('Error of Solution via PCG');
+title('Error of PCG');
 hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "./results/hqr/2D/kernel" + kernel + "/pcgerr_"+ func_name + ".png");
+saveas(fig, "./results/hif/2D/kernel" + kernel + "/pcgerr_"+ func_name + ".png");
 
-fig = figure(10);
+fig = figure(9);
 hold on;
 h(1) = plot(logN, iters);
 xlabel('Log(N)');
@@ -240,6 +231,6 @@ ylabel('Iteration');
 title('Iterations in PCG');
 hold off;
 % legend(h, 'App time', 'N log N', 'N log^2 N');
-saveas(fig, "./results/hqr/2D/kernel" + kernel + "/iters_" + func_name + ".png");
+saveas(fig, "./results/hif/2D/kernel" + kernel + "/iters_" + func_name + ".png");
 
 exit;
