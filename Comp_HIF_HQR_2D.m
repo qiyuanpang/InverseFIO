@@ -4,7 +4,7 @@ clear all;
 startup;
 
 tol = 1e-14
-kernel = "4"
+kernel = "1"
 fun_name = "fun" + kernel;
 func_name = fun_name;
 occ = 32;
@@ -40,7 +40,7 @@ iters_hqr = zeros(cases, 1);
 for i = 1:cases
     n = dims(i);
     N = n^2;
-    NG = 3*floor(log2(N));
+    NG = 6*floor(log2(N));
     rk = 8*floor(log2(N));
     % rank_or_tol = 15*floor(log2(N))
     k = -n/2:n/2-1;

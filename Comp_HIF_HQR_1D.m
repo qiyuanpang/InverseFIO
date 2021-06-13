@@ -4,7 +4,7 @@ clear all;
 startup;
 
 tol = 1e-14
-kernel = "7"
+kernel = "6"
 fun_name = "fun" + kernel;
 func_name = fun_name;
 occ = 32;
@@ -13,8 +13,8 @@ tol_sol = 1e-8
 maxit = 50
 repeat_num = 5;
 n0 = 8;
-tt = 5;
-rand_or_cheb = 'rand';
+tt = 6;
+rand_or_cheb = 'cheb';
 
 %dims = [16 25 36]
 dims = [16 25 36 49 64 81]
@@ -41,7 +41,7 @@ for i = 1:cases
     n = dims(i);
     N = n^2;
     NG = 5*floor(log2(N));
-    rk = 8*floor(log2(N));
+    rk = 9*floor(log2(N));
     k = -N/2:N/2-1;
     kk = k(:);
     %rank_or_tol = 8*floor(log2(N))    
