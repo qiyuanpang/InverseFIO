@@ -4,11 +4,11 @@ clear all;
 startup;
 
 tol = 1e-14
-kernel = "6"
+kernel = "1"
 fun_name = "fun" + kernel;
 func_name = fun_name;
 occ = 32;
-rank_or_tol = 1e-3
+rank_or_tol = 1e-6
 tol_sol = 1e-8
 maxit = 50
 repeat_num = 5;
