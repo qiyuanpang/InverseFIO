@@ -1,0 +1,5 @@
+function u = KernelApply(N, f)
+global mvcount;
+global Tree;
+mvcount = mvcount + size(f,2);
+u = five_solve(N, Tree, f);

@@ -104,12 +104,16 @@ function [sk,rd,T,niter] = id(A,rank_or_tol,Tmax,rrqr_iter,fixed)
   % compute ID
   [~,R,p] = qr(A,0);
   cmax = max(cmax,abs(R(1)));                  % maximum column norm
-  tol = cmax*tol;                              % absolute tolerance
   if any(size(R) == 1), diagR = R(1);          % in case R is a vector ...
   else,                 diagR = diag(R);       % ... instead of a matrix
   end
   k = nnz(abs(diagR) > tol);                   % rank by precision
-  if k == 0, k = 2; end
+  tol = cmax*tol;                              % absolute tolerance
+  if k == 0
+    k = 2;
+  else
+    k = nnz(abs(diagR) > tol);  
+  end
   R = R(1:k,:);
   k = min(k,kmax);                             % truncate rank by input
   R(1:k,k+1:end) = R(1:k,1:k)\R(1:k,k+1:end);  % store T

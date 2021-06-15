@@ -9,16 +9,20 @@ function [Y T R rk] = hqr(A, Bl, Br, C, level, tol_or_rank)
     H = [A;Br;C];
     if level == 0
         [Y, T, R] = qr_wybased(H);
+        % disp(size(H))
         YA = Y(1:size(A,1),:);
         YB = Y(size(A,1)+1:size(Br,1)+size(A,1),:);
         YC = Y(size(A,1)+size(Br,1)+1:end,:);
         Y = [YA;Bl*YB;YC];
         rk = size(R, 1);
+        % rk = 0;
     else
         [m, n] = size(A);
         m2 = floor(m/2);
         n2 = floor(n/2);
         [Bl1, Br1] = myqr(H(m2+1:m, 1:n2), tol_or_rank);
+        rk = min(size(Br1));
+        % fprintf('%d, %d \n', rk, level)
         [Y1, T1, R1, rk1] = hqr(H(1:m2, 1:n2), Bl1, Br1, [H(m+1:m+size(Br,1), 1:n2); H(m+size(Br,1)+1:m+size(Br,1)+size(C,1), 1:n2)], level-1, tol_or_rank);
         S = Y1(1:m2,:)'*H(1:m2,n2+1:n) + Y1(m2+1:m,:)'*H(m2+1:m,n2+1:n) + Y1(m+1:m+size(Br,1),:)'*H(m+1:m+size(Br,1),n2+1:n) + Y1(m+size(Br,1)+1:end,:)'*H(m+size(Br,1)+1:m+size(Br,1)+size(C,1),n2+1:n);
         S = T1'*S;
@@ -36,6 +40,6 @@ function [Y T R rk] = hqr(A, Bl, Br, C, level, tol_or_rank)
         YB = [Y1(m+1:m+size(Br,1),:) Y2(m-m2+1:m-m2+size(Br,1),:)];
         YC = [Y1(m+size(Br,1)+1:end,:) Y2(m-m2+size(Br,1)+1:end,:)];
         Y = [YA;Bl*YB;YC];
-        rk = max(rk1, rk2);
+        rk = max(rk, max(rk1, rk2));
     end
 end

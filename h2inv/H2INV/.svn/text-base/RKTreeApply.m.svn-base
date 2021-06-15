@@ -1,0 +1,113 @@
+function v = RKTreeApply( SampleList, RKTree, u, N, nLevelCur, nSample )
+% RKTreeApply calculates the low rank matrix-vector multiplication in
+% the uniformized format.
+% ********************************************************
+% INPUT PARAMETERS
+% ********************************************************
+% SampleList:   Cell structure, containing the information of the
+%               decomposd domain.
+% RKTree    :   Cell structure, containing the low rank matrices and
+%               related information. 
+% u         :   N * N * nSample array (3D). Vectors to be multiplied.
+%               Interpreted as sources.
+% N         :   Domain size is N*N
+% nLevelCur :   The current peeling-off level. This number equals to (the
+%               length of RKTree) + 1.
+% nSample   :   Number of right hand sides.
+% ********************************************************
+% OUTPUT PARAMETERS
+% ********************************************************
+% v         :   N * N * nSample array (3D). Vectors after matrix-vector
+%               multiplcation.  Interpreted as targets.
+% 
+DIRECT = 1;
+INDIRECT = 0;
+
+v = zeros( N, N, nSample );
+
+% General scheme
+% v_i = \sum_j G_{ij} u_j = \sum_j U_i M_ij U_j^T u_j.
+for iLevel = 1 : nLevelCur - 1
+  
+  nWidth = RKTree{iLevel}.nWidth;
+  TempT = cell(SampleList{iLevel}.nSource, 1);
+  TempS = cell(SampleList{iLevel}.nSource, 1);
+   
+  % First step, calculate all
+  % TempT_j = U_j^T u_j.
+  for iSource = 1 : SampleList{iLevel}.nSource
+    Source = SampleList{iLevel}.Source( :, iSource );
+    TempT{iSource} = transpose(RKTree{iLevel}.RKBlockUniU{iSource}) * ...
+      reshape( u( 1+(Source(1)-1)*nWidth : ...
+                  Source(1)*nWidth, ...
+                  1+(Source(2)-1)*nWidth : ...
+                  Source(2)*nWidth, : ), ...
+               nWidth*nWidth, nSample );
+  end
+
+  % Second step, calculate all
+  % M_{ij} * TempT_j and update it to TempS_i
+  for iRow = 1 : SampleList{iLevel}.nSource
+    TempS{iRow} = zeros(...
+      size(RKTree{iLevel}.RKBlockUniU{iRow},2), nSample);
+  end
+
+  for iSource = 1 : SampleList{iLevel}.nSource
+    for iTarget = 1 : SampleList{iLevel}.nTarget
+      iRKBlock = SampleList{iLevel}.RKIndex(iTarget, iSource );
+      if( SampleList{iLevel}.SymFlag(iTarget, iSource ) == DIRECT )
+	TargetInd = RKTree{iLevel}.RKTargetInd(iRKBlock);
+	TempS{TargetInd} = TempS{TargetInd} + ...
+	  RKTree{iLevel}.RKBlockUniM{iRKBlock} * ...
+	  TempT{iSource};
+      else
+	TargetInd = RKTree{iLevel}.RKSourceInd(iRKBlock);
+	TempS{TargetInd} = TempS{TargetInd} + ...
+	  transpose(RKTree{iLevel}.RKBlockUniM{iRKBlock}) * ...
+	  TempT{iSource};
+      end
+    end %iTarget
+  end % iSource
+
+
+  % Third step, calculate all
+  % v_i = U_i * TempS_i
+  for iRow = 1 : SampleList{iLevel}.nSource
+    Row = SampleList{iLevel}.Source( :, iRow );
+    TempT{iRow} = RKTree{iLevel}.RKBlockUniU{iRow} * TempS{iRow};
+    v( 1+(Row(1)-1)*nWidth : Row(1)*nWidth, ...
+       1+(Row(2)-1)*nWidth : Row(2)*nWidth, : ) = ...
+      v( 1+(Row(1)-1)*nWidth : Row(1)*nWidth, ...
+         1+(Row(2)-1)*nWidth : Row(2)*nWidth, : ) + ...
+      reshape( TempT{iRow}, nWidth, nWidth, nSample );
+  end % iSource
+
+
+  % ***************************************************************
+  % This is the old version without uniformization.
+  % ***************************************************************
+  %
+  % for iRKBlock = 1 : RKTree{iLevel}.nRKBlock
+    % Source = RKTree{iLevel}.RKSource(:,:,iRKBlock);
+    % Target = RKTree{iLevel}.RKTarget(:,:,iRKBlock);
+    % upart = reshape( u( Source(1,1):Source(1,2), ...
+      % Source(2,1):Source(2,2), : ), nWidth * nWidth, nSample );
+% 
+    % v(Target(1,1):Target(1,2), Target(2,1):Target(2,2), :) = ...
+      % v(Target(1,1):Target(1,2), Target(2,1):Target(2,2), :) +  ...
+      % reshape( RKTree{iLevel}.RKBlockU{iRKBlock} * ...
+      % ( (RKTree{iLevel}.RKBlockV{iRKBlock})' * upart ), ...
+      % nWidth, nWidth, nSample );
+% 
+    % % Symmetrize
+    % upart = reshape( u( Target(1,1):Target(1,2), ...
+      % Target(2,1):Target(2,2), : ), nWidth * nWidth, nSample );
+    % 
+    % v(Source(1,1):Source(1,2), Source(2,1):Source(2,2), :) = ...
+      % v(Source(1,1):Source(1,2), Source(2,1):Source(2,2), :) +  ...
+      % reshape( conj(RKTree{iLevel}.RKBlockV{iRKBlock}) * ...
+      % ( transpose(RKTree{iLevel}.RKBlockU{iRKBlock}) * upart ), ...
+      % nWidth, nWidth, nSample );
+% 
+  % end 
+end

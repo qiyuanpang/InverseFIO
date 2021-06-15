@@ -1,7 +1,7 @@
 function res = fun0var(N,x,k,s)
 
 xk = x*k';
-sx = (2 + sin(2*pi*x))/6;
+sx = (2 + sin(2*pi*x))/7;
 tmp = (2*pi)* (xk + sx*abs(k'));
 [K,X] = meshgrid(k,x);
 

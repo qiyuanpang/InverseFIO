@@ -2,7 +2,12 @@ function [Q, R] = myqr(A,rank_or_tol)
     [m,n] = size(A);
     [~,R,E] = qr(A,0);
     if rank_or_tol < 1
-        k = sum(abs(diag(R)) > abs(R(1))*rank_or_tol);
+        k = sum(abs(diag(R)) > rank_or_tol);
+        if k == 0
+            k = 1;
+        else
+            k = sum(abs(diag(R)) > abs(R(1,1))*rank_or_tol);
+        end
     else
         k = min(rank_or_tol,min(m,n));
     end

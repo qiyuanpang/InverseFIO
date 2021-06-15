@@ -1,0 +1,14 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ConstructRKTree	ConstructRKTree.m	/^function RKTree = ConstructRKTree( N, nLevel, SampleList )$/;"	f
+ConstructSampleList	ConstructSampleList.m	/^function SampleList = ConstructSampleList(N, nLevel)$/;"	f
+KernelApply	KernelApply.m	/^function u = KernelApply(N, f)$/;"	f
+RKTreeApplyH2	RKTreeApplyH2.m	/^function v = RKTreeApplyH2( SampleList, RKTree, u, N, nLevelCur, nSample )$/;"	f
+WholeTreeApply	WholeTreeApply.m	/^function v = WholeTreeApply( ...$/;"	f
+five_extractall	five_extract.m	/^function M = five_extractall(N, Tree)$/;"	f
+five_setup	five_setup.m	/^function Tree = five_setup(V,N, h)$/;"	f
+five_solve	five_solve.m	/^function u=five_solve(N,Tree, f)$/;"	f

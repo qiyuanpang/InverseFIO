@@ -4,13 +4,13 @@ clear all;
 startup;
 
 tol = 1e-14
-kernel = "1"
+kernel = "5"
 fun_name = "fun" + kernel;
 func_name = fun_name;
 occ = 32;
-rank_or_tol = 1e-6
+rank_or_tol = 1e-3
 tol_sol = 1e-8
-maxit = 50
+maxit = 200
 repeat_num = 5;
 n0 = 8;
 tt = 6;
@@ -58,7 +58,7 @@ for i = 1:cases
         case "fun2"
             fun = @(x,k)fun_fio2_1D(x,k);
         case "fun3"
-            fun = @(x,k)fun_fio3_1D(x,k,1);
+            fun = @(x,k)fun_fio3_1D(x,k,0.1);
         case "fun4"
             fun = @(x,k)fun_fio4_1D(N, x, k, 0.05);
         case "fun5"
@@ -116,7 +116,8 @@ for i = 1:cases
     fprintf('rank of hif: %6d \n', rk)
     ranks_hif(i) = rk;
 
-    [Y, T, R, rk] = hqr(ATA, [], [], [], floor(log2(N)/2)+1, rank_or_tol);
+    levels = floor(log2(N)/2)+1;
+    [Y, T, R, rk] = hqr(ATA, [], [], [], levels, rank_or_tol);
 
     fprintf('rank of hqr: %6d \n', rk)
     ranks_hqr(i) = rk;
@@ -156,18 +157,21 @@ for i = 1:cases
     solerr_hqr(i) = err_sol;
     soltime_hqr(i) = sol_time;
     
-    b = rand(N, 1);
+
+    
     pcd = @(x)hifie_sv(F, x);
     [x, flag, relres, iter] = pcg(ATA, b, tol_sol, maxit, pcd);
-    solerrpcg_hif(i) = relres;
+    relerr = norm(x-sol)/norm(sol);
+    solerrpcg_hif(i) = relerr;
     iters_hif(i) = iter;
-    fprintf('Solve the equation by PCG with HIF as a preconditioner in %4d iterations, rel error: %10.4e \n', iter, relres)
+    fprintf('Solve the equation by PCG with HIF as a preconditioner in %4d iterations, rel error: %10.4e \n', iter, relerr)
     
     pcd = @(b)R\(b - Y*T'*Y'*b);
     [x, flag, relres, iter] = pcg(ATA, b, tol_sol, maxit, pcd);
-    solerrpcg_hqr(i) = relres;
+    relerr = norm(x-sol)/norm(sol);
+    solerrpcg_hqr(i) = relerr;
     iters_hqr(i) = iter;
-    fprintf('Solve the equation by PCG with HQR as a preconditioner in %4d iterations, rel error: %10.4e \n', iter, relres)
+    fprintf('Solve the equation by PCG with HQR as a preconditioner in %4d iterations, rel error: %10.4e \n', iter, relerr)
     
 end
 

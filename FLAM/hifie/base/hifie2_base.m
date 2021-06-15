@@ -207,8 +207,11 @@ function [F, maxrank] = hifie2_base(A,x,occ,rank_or_tol,idfun,pxyfun,opts)
         if opts.symm == 'n', K2 = [K2; spget(M,slf,nbr)']; end
         K = [K1 + K2; Kpxy];
         [sk,rd,T] = idfun(K,K1,K2,rank_or_tol,opts.Tmax,opts.rrqr_iter);
-	%disp(sk)
-        maxrank = max(maxrank, length(sk));
+  %disp(sk)
+        % fprintf('%d, %d \n', length(sk), lvl)
+        if lvl > 0
+           maxrank = max(maxrank, length(sk));
+        end
 
         % restrict to skeletons for next level
         if d == 2

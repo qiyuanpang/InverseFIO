@@ -1,0 +1,138 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2009 The MathWorks, Inc.
+                 Version 7.9.0.529 (R2009b) 32-bit (glnx86)
+                              August 12, 2009
+
+ 
+  To get started, type one of these: helpwin, helpdesk, or demo.
+  For product information, visit www.mathworks.com.
+ 
+>> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> Factorization
+Extraction
+
+SVDCut =
+
+   1.0e-06 *
+
+    1.0000
+    1.0000
+    1.0000
+
+Constructing RKTree...
+
+iLevel =
+
+     1
+
+Time elasped is 0.37218 s
+
+iLevel =
+
+     2
+
+Time elasped is 2.2809 s
+
+iLevel =
+
+     3
+
+Time elasped is 10.512 s
+
+Extracting diagonal and nearest off diagonal blocks...
+Time elasped is 1.036 s
+
+Total time cost for H-matrix construction is 14.2011 s
+
+Number of matrix-vector applications is 3140
+
+relative L^1 error of the diagonal elements
+
+diagrelerrL1 =
+
+   2.6775e-06
+
+absolute Max error of the diagonal elements
+
+diagabserrMax =
+
+   2.5996e-08
+
+relative Max error of the diagonal elements
+
+diagrelerrMax =
+
+   2.0986e-05
+
+   18 iterations to reach abs(Enew - Eold)./ Enew < 1e-3 
+
+
+L2abserrpower =
+
+   2.2031e-07
+
+Estimated absolute L^2 error using power method
+
+L2abserrpower =
+
+   2.2031e-07
+
+    3 iterations to reach abs(Enew - Eold)./ Enew < 1e-3 
+
+Estimated relative L^2 error using power method
+
+L2relerrpower =
+
+   3.2794e-07
+
+H2: Total Memory Cost for RKTree and DiagBlock (real numbers only) is  2.245 MB
+Uniform H^1: Total Memory Cost for RKTree and DiagBlock (real numbers only) is  2.260 MB
+
+TotalTime =
+
+   14.2011
+
+
+TotalKernelTime =
+
+    0.8081
+
+
+mvcount =
+
+        3161
+
+
+TotalBytes =
+
+     2370080
+
+
+L2abserrpower =
+
+   2.2031e-07
+
+
+L2relerrpower =
+
+   3.2794e-07
+
+>> >> >> >> >> >> >> >> >> >> >> >> >> >> >> 
+table1 =
+
+ \sqrt{N} & L & Total Time (sec) & Construction Time (sec) & matvec number & Memory (MB)\\ 
+ \hline
+  32 &  3 &  14.20 &   0.81   3161 &   2.26\\ 
+ \hline
+
+
+>> 
+table2 =
+
+ \sqrt{N} & L & Absolute L^2 error & Relative L^2 error\\ 
+ \hline
+  32 &  3 &   2.20e-07 &   3.28e-07 \\ 
+ \hline
+
+
+>> 
