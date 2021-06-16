@@ -4,7 +4,7 @@ clear all;
 startup;
 
 tol = 1e-14
-kernel = "3"
+kernel = "4"
 fun_name = "fun" + kernel;
 func_name = fun_name;
 occ = 32;
