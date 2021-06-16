@@ -21,7 +21,7 @@ kernel =
 
 rank_or_tol =
 
-   1.0000e-03
+   1.0000e-06
 
 
 tol_sol =
@@ -45,16 +45,16 @@ condition number estimation of A1  : 2.5053e+02
 condition number estimation of ATA1: 6.2765e+04 
 err between matrices: 3.6635e-12 
 rank of hif:     72 
-rank of hqr:    127 
+rank of hqr:    128 
 [Warning: Maximum number of iterations reached.] 
 [> In snorm (line 71)
   In Comp_HIF_HQR_2D (line 121)] 
 hifie_mv err: 2.0958e-16 
-hqr_mv   err: 2.4745e-05 
-hifie_sv err/time: 3.8600e-11/1.1410e-02 (s) 
-hqr_sv   err/time: 9.2422e-03/1.0171e-02 (s) 
+hqr_mv   err: 7.7585e-16 
+hifie_sv err/time: 3.8600e-11/6.2678e-03 (s) 
+hqr_sv   err/time: 3.9216e-11/2.0064e-03 (s) 
 Solve the equation by PCG with HIF as a preconditioner in    1 iterations, rel error: 3.8600e-11 
-Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 1.3328e-07 
+Solve the equation by PCG with HQR as a preconditioner in    1 iterations, rel error: 3.9216e-11 
 N =  625 
 condition number estimation of A  : 3.4011e+03 
 condition number estimation of ATA: 1.1568e+07 
@@ -62,69 +62,69 @@ condition number estimation of A1  : 3.4011e+03
 condition number estimation of ATA1: 1.1568e+07 
 err between matrices: 7.0934e-14 
 rank of hif:    169 
-rank of hqr:    293 
+rank of hqr:    312 
 hifie_mv err: 3.6439e-16 
-hqr_mv   err: 9.4860e-05 
-hifie_sv err/time: 1.4521e-10/9.1610e-03 (s) 
-hqr_sv   err/time: 1.1519e+01/2.0698e-02 (s) 
+hqr_mv   err: 1.3495e-15 
+hifie_sv err/time: 1.4521e-10/6.7908e-03 (s) 
+hqr_sv   err/time: 9.1106e-10/1.1637e-02 (s) 
 Solve the equation by PCG with HIF as a preconditioner in    1 iterations, rel error: 1.4521e-10 
-Solve the equation by PCG with HQR as a preconditioner in    2 iterations, rel error: 8.4479e+00 
+Solve the equation by PCG with HQR as a preconditioner in    1 iterations, rel error: 9.1106e-10 
 N = 1296 
 condition number estimation of A  : 1.4917e+05 
 condition number estimation of ATA: 2.2252e+10 
 condition number estimation of A1  : 1.4917e+05 
 condition number estimation of ATA1: 2.2252e+10 
 err between matrices: 9.3634e-12 
-rank of hif:    333 
-rank of hqr:    549 
-hifie_mv err: 9.4126e-05 
-hqr_mv   err: 2.1699e-04 
-hifie_sv err/time: 2.8353e+02/8.2880e-02 (s) 
-hqr_sv   err/time: 2.5288e+01/1.2607e-01 (s) 
-Solve the equation by PCG with HIF as a preconditioner in   23 iterations, rel error: 6.6582e-04 
-Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 2.4181e+01 
+rank of hif:    335 
+rank of hqr:    645 
+hifie_mv err: 3.2355e-16 
+hqr_mv   err: 1.8766e-08 
+hifie_sv err/time: 2.4000e-07/5.0905e-02 (s) 
+hqr_sv   err/time: 1.1252e-01/1.0375e-01 (s) 
+Solve the equation by PCG with HIF as a preconditioner in    1 iterations, rel error: 2.4000e-07 
+Solve the equation by PCG with HQR as a preconditioner in    1 iterations, rel error: 1.1252e-01 
 N = 2401 
 condition number estimation of A  : 2.2427e+07 
 condition number estimation of ATA: 5.0491e+14 
 condition number estimation of A1  : 2.2427e+07 
 condition number estimation of ATA1: 5.0183e+14 
 err between matrices: 1.1115e-09 
-rank of hif:    621 
-rank of hqr:    905 
-hifie_mv err: 1.4817e-04 
-hqr_mv   err: 3.1779e-04 
-hifie_sv err/time: 3.9086e+03/2.6151e-01 (s) 
-hqr_sv   err/time: 3.0473e+02/1.2766e+00 (s) 
-Solve the equation by PCG with HIF as a preconditioner in  200 iterations, rel error: 3.7774e+02 
-Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 1.7974e+02 
+rank of hif:    625 
+rank of hqr:   1159 
+hifie_mv err: 4.6209e-16 
+hqr_mv   err: 8.2405e-08 
+hifie_sv err/time: 2.8875e-03/5.0455e-02 (s) 
+hqr_sv   err/time: 8.6720e+01/7.4600e-01 (s) 
+Solve the equation by PCG with HIF as a preconditioner in    1 iterations, rel error: 2.8875e-03 
+Solve the equation by PCG with HQR as a preconditioner in    1 iterations, rel error: 8.6720e+01 
 N = 4096 
 condition number estimation of A  : 1.1891e+09 
 condition number estimation of ATA: 1.3632e+17 
 condition number estimation of A1  : 1.0099e+09 
 condition number estimation of ATA1: 2.3729e+18 
 err between matrices: 4.9900e-06 
-rank of hif:    980 
-rank of hqr:   1385 
-hifie_mv err: 2.0958e-04 
-hqr_mv   err: 3.7069e-04 
-hifie_sv err/time: 3.6980e+03/7.0435e-02 (s) 
-hqr_sv   err/time: 4.8636e+01/1.4740e+00 (s) 
-Solve the equation by PCG with HIF as a preconditioner in  200 iterations, rel error: 3.9149e+02 
-Solve the equation by PCG with HQR as a preconditioner in    1 iterations, rel error: 4.8453e+01 
+rank of hif:   1056 
+rank of hqr:   1872 
+hifie_mv err: 5.5449e-16 
+hqr_mv   err: 1.7360e-07 
+hifie_sv err/time: 5.5175e+00/1.4391e-01 (s) 
+hqr_sv   err/time: 2.7627e+03/2.1825e+00 (s) 
+Solve the equation by PCG with HIF as a preconditioner in    1 iterations, rel error: 5.5175e+00 
+Solve the equation by PCG with HQR as a preconditioner in    1 iterations, rel error: 2.7627e+03 
 N = 6561 
 condition number estimation of A  : 1.9819e+11 
 condition number estimation of ATA: 1.8396e+17 
 condition number estimation of A1  : 2.2745e+11 
 condition number estimation of ATA1: 5.1566e+18 
 err between matrices: 1.7648e-08 
-rank of hif:   1525 
-rank of hqr:   2018 
-hifie_mv err: 2.2145e-04 
-hqr_mv   err: 4.0784e-04 
-hifie_sv err/time: 1.0917e+04/1.2077e-01 (s) 
-hqr_sv   err/time: 1.2795e+03/3.1234e+00 (s) 
-Solve the equation by PCG with HIF as a preconditioner in  195 iterations, rel error: 4.1315e+02 
-Solve the equation by PCG with HQR as a preconditioner in    1 iterations, rel error: 3.3000e+02 
+rank of hif:   1681 
+rank of hqr:   2792 
+hifie_mv err: 1.0956e-07 
+hqr_mv   err: 2.7609e-07 
+hifie_sv err/time: 1.7473e+06/1.3869e-01 (s) 
+hqr_sv   err/time: 8.6791e+03/3.6775e+00 (s) 
+Solve the equation by PCG with HIF as a preconditioner in    3 iterations, rel error: 1.9256e+06 
+Solve the equation by PCG with HQR as a preconditioner in    1 iterations, rel error: 8.6786e+03 
 [Warning: Ignoring extra legend entries.] 
 [> In legend>process_inputs (line 602)
   In legend>make_legend (line 334)
