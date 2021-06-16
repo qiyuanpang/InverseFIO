@@ -14,8 +14,8 @@ function [Y T R rk] = hqr(A, Bl, Br, C, level, tol_or_rank)
         YB = Y(size(A,1)+1:size(Br,1)+size(A,1),:);
         YC = Y(size(A,1)+size(Br,1)+1:end,:);
         Y = [YA;Bl*YB;YC];
-        rk = size(R, 1);
-        % rk = 0;
+        %rk = size(R, 1);
+        rk = 1;
     else
         [m, n] = size(A);
         m2 = floor(m/2);
