@@ -1,0 +1,55 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2020 The MathWorks, Inc.
+              R2020a Update 2 (9.8.0.1380330) 64-bit (glnxa64)
+                                May 5, 2020
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+
+tol =
+
+   1.0000e-12
+
+
+kernel = 
+
+    "3"
+
+
+rank_or_tol =
+
+   1.0000e-03
+
+
+tol_sol =
+
+   1.0000e-08
+
+
+maxit =
+
+   200
+
+
+dims =
+
+    16    25    36    49    64    72
+
+N =  256 
+condition number estimation of A  : 3.1568e+00 
+condition number estimation of ATA: 9.9653e+00 
+condition number estimation of A1  : 3.1568e+00 
+condition number estimation of ATA1: 9.9653e+00 
+err between matrices: 1.7326e-13 
+hqr_mv   err: 5.8786e-04/2.5363e-02 (s) 
+hqr_sv   err/time: 1.2645e-03/3.0060e-02 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 2.2139e-09 
+N =  625 
+condition number estimation of A  : 2.8285e+01 
+condition number estimation of ATA: 8.0006e+02 
+condition number estimation of A1  : 2.8285e+01 
+condition number estimation of ATA1: 8.0006e+02 
+err between matrices: 4.0067e-13 

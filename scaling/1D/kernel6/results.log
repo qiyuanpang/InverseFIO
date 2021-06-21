@@ -1,0 +1,99 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2020 The MathWorks, Inc.
+              R2020a Update 2 (9.8.0.1380330) 64-bit (glnxa64)
+                                May 5, 2020
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+
+tol =
+
+   1.0000e-12
+
+
+kernel = 
+
+    "6"
+
+
+rank_or_tol =
+
+   1.0000e-03
+
+
+tol_sol =
+
+   1.0000e-08
+
+
+maxit =
+
+   200
+
+
+dims =
+
+    16    25    36    49    64    72
+
+N =  256 
+condition number estimation of A  : 2.0086e+01 
+condition number estimation of ATA: 4.0346e+02 
+condition number estimation of A1  : 2.0086e+01 
+condition number estimation of ATA1: 4.0346e+02 
+err between matrices: 2.9202e-13 
+hqr_mv   err: 8.1667e-04/2.0907e-02 (s) 
+hqr_sv   err/time: 8.8430e-03/2.2160e-02 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 1.2820e-08 
+N =  625 
+condition number estimation of A  : 2.1111e+01 
+condition number estimation of ATA: 4.4567e+02 
+condition number estimation of A1  : 2.1111e+01 
+condition number estimation of ATA1: 4.4567e+02 
+err between matrices: 4.3924e-13 
+hqr_mv   err: 6.9910e-04/2.9265e-02 (s) 
+hqr_sv   err/time: 4.2181e-03/3.5825e-02 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 3.9490e-08 
+N = 1296 
+condition number estimation of A  : 2.1611e+01 
+condition number estimation of ATA: 4.6705e+02 
+condition number estimation of A1  : 2.1611e+01 
+condition number estimation of ATA1: 4.6705e+02 
+err between matrices: 8.3503e-12 
+hqr_mv   err: 6.4456e-04/8.3729e-02 (s) 
+hqr_sv   err/time: 2.7184e-03/8.5601e-02 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 3.4172e-08 
+N = 2401 
+condition number estimation of A  : 2.1893e+01 
+condition number estimation of ATA: 4.7931e+02 
+condition number estimation of A1  : 2.1893e+01 
+condition number estimation of ATA1: 4.7931e+02 
+err between matrices: 6.9642e-13 
+hqr_mv   err: 7.6777e-04/1.8642e-01 (s) 
+hqr_sv   err/time: 2.0488e-03/1.9220e-01 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 2.3371e-08 
+N = 4096 
+condition number estimation of A  : 2.2066e+01 
+condition number estimation of ATA: 4.8690e+02 
+condition number estimation of A1  : 2.2066e+01 
+condition number estimation of ATA1: 4.8690e+02 
+err between matrices: 1.0683e-12 
+hqr_mv   err: 7.9904e-04/2.7508e-01 (s) 
+hqr_sv   err/time: 2.5713e-03/2.8828e-01 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 3.7941e-08 
+N = 5184 
+condition number estimation of A  : 2.2126e+01 
+condition number estimation of ATA: 4.8956e+02 
+condition number estimation of A1  : 2.2126e+01 
+condition number estimation of ATA1: 4.8956e+02 
+err between matrices: 1.6579e-11 
+hqr_mv   err: 6.4371e-04/2.9382e-01 (s) 
+hqr_sv   err/time: 1.9849e-03/2.9790e-01 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 2.5377e-08 
+[Warning: Ignoring extra legend entries.] 
+[> In legend>process_inputs (line 602)
+  In legend>make_legend (line 334)
+  In legend (line 278)
+  In scaling_hqr (line 213)] 
