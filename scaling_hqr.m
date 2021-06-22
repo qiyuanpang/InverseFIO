@@ -4,7 +4,7 @@ clear all;
 startup;
 
 tol = 1e-12
-kernel = "7"
+kernel = "1"
 fun_name = "fun" + kernel;
 func_name = fun_name;
 occ = 32;
@@ -92,8 +92,12 @@ for i = 1:cases
     bferr(i) = bfacc;    
 
 
-    lvls = floor(log2(N));
+    lvls = floor(log2(N))-1;
     F = hodlr(ATA, lvls, 1E-9);
+    % F
+    % while ~isempty(F)
+    %     F = F.A11
+    % end
     ranks_hodlr(i) = F.maxrk;
     % norm2 = norm(ATA);
     norm2 = 1;

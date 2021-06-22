@@ -9,9 +9,15 @@ function F = hodlr(A, lvl, tol_or_rank)
         [U1 S1 V1] = svd(A(1:m2, n2+1:n), 0);
         diagS1 = diag(S1);
         if tol_or_rank < 1
-            tol = tol_or_rank*abs(S1(1));
-            k = nnz(abs(diagS1) > tol);
-            [Q1, R1] = recompression(U1(:, 1:k), diagS1(1:k).*V1(:, 1:k)', tol);
+            k = nnz(abs(diagS1) > tol_or_rank);
+            if k == 0
+                k = 1;
+                [Q1, R1] = recompression(U1(:, 1:k), diagS1(1:k).*V1(:, 1:k)', tol_or_rank);
+            else
+                tol = tol_or_rank*abs(S1(1));
+                k = nnz(abs(diagS1) > tol);
+                [Q1, R1] = recompression(U1(:, 1:k), diagS1(1:k).*V1(:, 1:k)', tol);
+            end
         else
             k = floor(tol_or_rank);
         end
@@ -19,9 +25,15 @@ function F = hodlr(A, lvl, tol_or_rank)
         [U2 S2 V2] = svd(A(m2+1:m, 1:n2), 0);
         diagS2 = diag(S2);
         if tol_or_rank < 1
-            tol = tol_or_rank*abs(S2(1));
-            k = nnz(abs(diagS2) > tol);
-            [Q2, R2] = recompression(U2(:, 1:k), diagS2(1:k).*V2(:, 1:k)', tol);
+            k = nnz(abs(diagS2) > tol_or_rank);
+            if k == 0
+                k = 1;
+                [Q2, R2] = recompression(U2(:, 1:k), diagS2(1:k).*V2(:, 1:k)', tol_or_rank);
+            else
+                tol = tol_or_rank*abs(S2(1));
+                k = nnz(abs(diagS2) > tol);
+                [Q2, R2] = recompression(U2(:, 1:k), diagS2(1:k).*V2(:, 1:k)', tol);
+            end
         else
             k = floor(tol_or_rank);
         end
