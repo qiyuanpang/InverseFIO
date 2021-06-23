@@ -17,7 +17,7 @@ tt = 6;
 rand_or_cheb = 'cheb';
 
 % dims = [16 25 36]
-dims = [16 25 36 49 64 81 100 121 144]
+dims = [16 36 64 100 144 196 256]
 cases = length(dims);
 apptime = zeros(cases, 1);
 bferr = zeros(cases, 1);
@@ -70,6 +70,9 @@ for i = 1:cases
     for j = 1:repeat_num
         [Y T R] = qr_wybased(A);
     end
+    size(Y)
+    size(T)
+    size(R)
     apptime(i) = toc/repeat_num;
     
 end

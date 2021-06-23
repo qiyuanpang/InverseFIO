@@ -1,16 +1,17 @@
 function [Y T R] = qr_wybased(A)
     [m n] = size(A);
-    if (m < n)
+    if m < n
         fprintf("Input matrix should be a tall skinny or square matrix!")
         return;
     end
     %% if n == 1, return (I - 2 v v^T)*(rho 0)^{T}
-    if (n == 1)
-        x = A(:);
-        v = sign(x(1))*norm(x)*[1; zeros(m-1, 1)] + x;
-        Y = v / norm(v);
-        T = [2];
-        R = [x(1)-2*Y(1)*Y'*x];
+    if n < max(8, floor(log2(n+1)))
+        [Y T R] = householderqr(A);
+        %x = A(:);
+        %v = sign(x(1))*norm(x)*[1; zeros(m-1, 1)] + x;
+        %Y = v / norm(v);
+        %T = [2];
+        %R = [x(1)-2*Y(1)*Y'*x];
     else
         n1 = floor(n/2);
         [Y1 T1 R1] = qr_wybased(A(:, 1:n1));
