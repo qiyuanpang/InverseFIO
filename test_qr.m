@@ -37,7 +37,7 @@ for i = 1:cases
     N = n^2;
     NG = 5*floor(log2(N));
     rk = 9*floor(log2(N));
-    k = -10/2:10/2-1;
+    k = -80/2:80/2-1;
     kk = k(:);
     %rank_or_tol = 8*floor(log2(N))    
 
@@ -68,13 +68,12 @@ for i = 1:cases
     A = fun(xx, kk);
     tic;
     for j = 1:repeat_num
-        [Y T R] = qr_wybased(A);
+        [Y T R] = householderqr(A);
     end
+    apptime(i) = toc/repeat_num;
     size(Y)
     size(T)
     size(R)
-    apptime(i) = toc/repeat_num;
-    
 end
 
 N = dims.^2;
