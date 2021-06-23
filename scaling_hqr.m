@@ -17,7 +17,7 @@ tt = 6;
 rand_or_cheb = 'cheb';
 
 % dims = [16 25 36]
-dims = [16 25 36 49 64 81]
+dims = [16 25 36 49 64 81 100]
 cases = length(dims);
 apptime = zeros(cases, 1);
 bferr = zeros(cases, 1);
@@ -92,7 +92,7 @@ for i = 1:cases
     bferr(i) = bfacc;    
 
 
-    lvls = floor(log2(N))-1;
+    lvls = round(log2(N/16));
     F = hodlr(ATA, lvls, 1E-9);
     % F
     % while ~isempty(F)
