@@ -15,10 +15,11 @@ function [Y T R] = qr_wybased(A)
     else
         n1 = floor(n/2);
         [Y1 T1 R1] = qr_wybased(A(:, 1:n1));
-        A(:, n1+1:n) = A(:, n1+1:n) - Y1*T1'*Y1'*A(:, n1+1:n);
+        A(:, n1+1:n) = A(:, n1+1:n) - Y1*(T1'*(Y1'*A(:, n1+1:n)));
         [Y2 T2 R2] = qr_wybased(A(n1+1:m, n1+1:n));
+        %Y2 = [zeros(n1, n-n1); Y2];
+        T12 = -(T1*Y1(n1+1:m, :)')*Y2*T2;
         Y2 = [zeros(n1, n-n1); Y2];
-        T12 = -T1*Y1'*Y2*T2;
         Y = [Y1 Y2];
         T = [T1 T12; zeros(n-n1, n1) T2];
         R = [R1 A(1:n1, n1+1:n); zeros(n-n1, n1) R2];

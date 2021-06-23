@@ -68,12 +68,16 @@ for i = 1:cases
     A = fun(xx, kk);
     tic;
     for j = 1:repeat_num
-        [Y T R] = householderqr(A);
+        [Y T R] = qr_wybased(A);
     end
     apptime(i) = toc/repeat_num;
-    size(Y)
-    size(T)
-    size(R)
+    m = length(xx);
+    n = length(kk);
+    v = rand(n,1);
+    y = [R*v;zeros(m-n,1)];
+    y = y - Y*(T*(Y'*y));
+    norm(y-A*v)/norm(A*v)
+    
 end
 
 N = dims.^2;
