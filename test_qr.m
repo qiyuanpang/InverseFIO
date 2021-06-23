@@ -66,6 +66,7 @@ for i = 1:cases
     end
 
     A = fun(xx, kk);
+    tic;
     for j = 1:repeat_num
         [Y T R] = qr_wybased(A);
     end
