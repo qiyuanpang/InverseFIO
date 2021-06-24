@@ -9,6 +9,6 @@ function [Q, R] = recompression(Al, Ar, tol)
         diagS = diag(S);
         k = nnz(abs(diagS) > tol);
         Q = Q1*U(:, 1:k);
-        R = diagS(1:k).*V(:,1:k)'*Q2';
+        R = diagS(1:k).*(V(:,1:k)'*Q2');
     end
 end

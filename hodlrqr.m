@@ -31,19 +31,19 @@ function [YA, YB, YC, T, R, rk] = hodlrqr(A, Bl, Br, C, lvls, norm2, tol_or_rank
         [S.Q, S.R] = recompression(S.Q, S.R, tol_or_rank*norm2);
         i = 1;
         while i <= size(Br,1)
-            S.Q = [S.Q YC1(i:min(i+rk-1,size(Br,1)), :)'];
-            S.R = [S.R; Br(i:min(i+rk-1,size(Br,1)), n1+1:min(n1+n2,size(Br,2)))];
+            S.Q = [S.Q YC1(i:min(i+2,size(Br,1)), :)'];
+            S.R = [S.R; Br(i:min(i+2,size(Br,1)), n1+1:min(n1+n2,size(Br,2)))];
             % fprintf('(%d, %d), (%d, %d)\n', size(S.Q), size(S.R))
             [S.Q, S.R] = recompression(S.Q, S.R, tol_or_rank*norm2);
-            i = i + rk;
+            i = i + 3;
         end
         i = 1;
         while i <= size(C,1)
-            S.Q = [S.Q YC1(size(Br,1)+i:size(Br,1)+min(i+rk-1,size(C,1)), :)'];
-            S.R = [S.R; C(i:min(i+rk-1, size(C,1)), n1+1:min(n1+n2,size(C,2)))];
+            S.Q = [S.Q YC1(size(Br,1)+i:size(Br,1)+min(i+2,size(C,1)), :)'];
+            S.R = [S.R; C(i:min(i+2, size(C,1)), n1+1:min(n1+n2,size(C,2)))];
             % fprintf('(%d, %d), (%d, %d)\n', size(S.Q), size(S.R))
             [S.Q, S.R] = recompression(S.Q, S.R, tol_or_rank*norm2);
-            i = i + rk;
+            i = i + 3;
         end
         QS = S.Q;
         RS = S.R;
@@ -74,11 +74,11 @@ function [YA, YB, YC, T, R, rk] = hodlrqr(A, Bl, Br, C, lvls, norm2, tol_or_rank
         [T12.Q, T12.R] = recompression(T12.Q, T12.R, tol_or_rank);
         i = 1;
         while i <= size(C,1)
-            T12.Q = [T12.Q YC1(size(Br,1)+i:size(Br,1)+min(i+rk-1,size(C,1)), :)'];
-            T12.R = [T12.R; YC2(size(Br2,1)+i:size(Br2,1)+min(i+rk-1,size(C2,1)), :)];
+            T12.Q = [T12.Q YC1(size(Br,1)+i:size(Br,1)+min(i+2,size(C,1)), :)'];
+            T12.R = [T12.R; YC2(size(Br2,1)+i:size(Br2,1)+min(i+2,size(C2,1)), :)];
             % fprintf('(%d, %d), (%d, %d)\n', size(T12.Q), size(T12.R))
             [T12.Q, T12.R] = recompression(T12.Q, T12.R, tol_or_rank);
-            i = i + rk;
+            i = i + 3;
         end
         QT12 = T12.Q;
         RT12 = T12.R;
