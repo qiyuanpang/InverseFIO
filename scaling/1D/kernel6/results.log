@@ -1,0 +1,90 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+              R2019a Update 1 (9.6.0.1099231) 64-bit (glnxa64)
+                               April 12, 2019
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+
+tol =
+
+   1.0000e-12
+
+
+kernel = 
+
+    "6"
+
+
+rank_or_tol =
+
+   1.0000e-03
+
+
+tol_sol =
+
+   1.0000e-08
+
+
+maxit =
+
+   200
+
+
+dims =
+
+    16    25    36    49    64    81   100   121   144
+
+N =  256 
+err between matrices: 2.9200e-13 
+hqr_mv   err: 4.2569e-04/2.7204e-03 (s) 
+hqr_sv   err/time: 7.4309e-03/2.8080e-03 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 3.2999e-09 
+N =  625 
+err between matrices: 4.3922e-13 
+hqr_mv   err: 4.5767e-04/2.2342e-03 (s) 
+hqr_sv   err/time: 2.6855e-03/3.0376e-03 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 8.0856e-09 
+N = 1296 
+err between matrices: 8.3508e-12 
+hqr_mv   err: 4.6304e-04/7.3360e-03 (s) 
+hqr_sv   err/time: 2.4148e-03/1.0404e-02 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 7.6550e-09 
+N = 2401 
+err between matrices: 6.9644e-13 
+hqr_mv   err: 4.7593e-04/1.2003e-02 (s) 
+hqr_sv   err/time: 2.0045e-03/1.2245e-02 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 2.5342e-09 
+N = 4096 
+err between matrices: 1.0698e-12 
+hqr_mv   err: 4.4405e-04/2.7336e-02 (s) 
+hqr_sv   err/time: 2.6392e-03/3.1874e-02 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 6.3996e-09 
+N = 6561 
+err between matrices: 2.6880e-11 
+hqr_mv   err: 4.7523e-04/5.9895e-02 (s) 
+hqr_sv   err/time: 2.0616e-03/6.7974e-02 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 1.7045e-09 
+N = 10000 
+err between matrices: 2.3736e-12 
+hqr_mv   err: 4.4655e-04/4.7242e-02 (s) 
+hqr_sv   err/time: 1.8926e-03/5.9652e-02 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 1.9928e-09 
+N = 14641 
+err between matrices: 3.4158e-11 
+hqr_mv   err: 4.7791e-04/1.2921e-01 (s) 
+hqr_sv   err/time: 1.9576e-03/1.4482e-01 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 1.6055e-09 
+N = 20736 
+err between matrices: 4.3169e-11 
+hqr_mv   err: 4.3010e-04/1.4365e-01 (s) 
+hqr_sv   err/time: 1.5429e-03/1.6945e-01 (s) 
+Solve the equation by PCG with HQR as a preconditioner in    3 iterations, rel error: 1.1754e-09 
+[Warning: Ignoring extra legend entries.] 
+[> In legend>process_inputs (line 578)
+  In legend>make_legend (line 322)
+  In legend (line 273)
+  In scaling_hqr (line 217)] 

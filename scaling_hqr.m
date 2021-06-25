@@ -4,7 +4,7 @@ clear all;
 startup;
 
 tol = 1e-12
-kernel = "7"
+kernel = "6"
 fun_name = "fun" + kernel;
 func_name = fun_name;
 occ = 32;
@@ -17,7 +17,7 @@ tt = 6;
 rand_or_cheb = 'cheb';
 
 % dims = [16 25 36]
-dims = [16 25 36 49 64 81 100]
+dims = [16 25 36 49 64 81 100 121 144]
 cases = length(dims);
 apptime = zeros(cases, 1);
 bferr = zeros(cases, 1);
@@ -70,21 +70,21 @@ for i = 1:cases
     A = BF_apply(Factor,eye(N));
     ATA = BF_adj_apply(Factor, A);
 
-    condA = cond(A);
-    condATA = cond(ATA);
-    fprintf('condition number estimation of A  : %10.4e \n', condA)
-    fprintf('condition number estimation of ATA: %10.4e \n', condATA)
+    %condA = cond(A);
+    %condATA = cond(ATA);
+    %fprintf('condition number estimation of A  : %10.4e \n', condA)
+    %fprintf('condition number estimation of ATA: %10.4e \n', condATA)
 
-    condAs(i) = condA;
-    condATAs(i) = condATA;
+    %condAs(i) = condA;
+    %condATAs(i) = condATA;
     
     A1 = fun(xx, kk);
     ATA1 = A1'*A1;
 
-    condA1 = cond(A1);
-    condATA1 = cond(ATA1);
-    fprintf('condition number estimation of A1  : %10.4e \n', condA1)
-    fprintf('condition number estimation of ATA1: %10.4e \n', condATA1)
+    %condA1 = cond(A1);
+    %condATA1 = cond(ATA1);
+    %fprintf('condition number estimation of A1  : %10.4e \n', condA1)
+    %fprintf('condition number estimation of ATA1: %10.4e \n', condATA1)
     
     randx = rand(N, 1);
     bfacc = norm(A*randx-A1*randx)/norm(A1*randx);
